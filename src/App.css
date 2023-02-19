@@ -114,28 +114,6 @@ button{
   padding: 2px;
 }
 
-
-
-/* Progress bar = Different meter width */
-/* .meter-card .meter0{
-  background-color: lightgreen;
-  height: 25px;
-  border-radius: 20px;
-  text-align: center;
-  color:  rgb(128, 128, 128, 40%);
-  width: 0vw;
-}
-
-.meter-card .meter3{
-  background-color: lightgreen;
-  height: 25px;
-  border-radius: 20px;
-  text-align: center;
-  color:  rgb(128, 128, 128, 40%);
-  width: 100vw;
-} */
-
-/* Progress bar = Different meter width */
 p{
   color:  rgb(128, 128, 128, 80%);
   margin: 0px 20px;
@@ -186,16 +164,6 @@ p{
   width: 20px;
 }
 
-/* 
-small{
-  color:  rgb(128, 128, 128, 80%);
-  text-align: center;
-  border: 1px solid black;
-  width: 100%;
-} */
-
-
-
 /* Food Meter menu */
 
 /* Main Menu */
@@ -217,7 +185,6 @@ small{
 .menu-card .menu-categories ul{
   display: flex;
   list-style: none;
-  /* justify-content: space-around; */
   padding: 0; 
   width: 90vw;
   margin: 10px auto;
@@ -317,9 +284,6 @@ small{
   position: relative;
 }
 
-#fortune-wheel{
-  background-color: rgb(255, 192, 203, 70%);
-}
 
 .wheel-card .special{
   background-color: rgb(144, 238, 144, 20%);
@@ -344,7 +308,6 @@ small{
   width: 18px;
   height: 18px;
 }
-
 
 /* Main Menu */
 
@@ -401,212 +364,12 @@ small{
 /* OrderCheckout page */
 
 
-/* Games - Slot Machine & Wheel */
-
-.gameOfWheel{
-  /* border: 10px solid orange; */
-  border-radius: 20px;
-  height: fit-content;
-  width: 90vw;
-  margin: auto;
-  padding: 0px 0px 20px 0px;
-  margin-top: 5px;
-  background-color: rgb(128, 0, 128, 15%);
-}
-
-.gameOfWheel .heading{
-  background-color: rgb(21, 165, 32, 80%);
-  height: 8vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-}
-
-.gameOfWheel .heading p{
-  font-size: larger;
-  color: white;
-  font-weight: 500;
-}
-
-.orders-container{
-  height: fit-content;
-}
-
-.orders-container .orders-card{
-  min-height: 10vh;
-  max-height: 32vh;
-  width: 96vw;
-  overflow: scroll;
-  border: 2px solid grey;
-  margin: auto;
-  border-radius: 10px;
-  margin-top: 5px;
-}
-
-.orders-container .heading p{
-  color:white;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5vh;
-  border-radius: 30px;
-}
-
-
-.gameOfWheel .btns{
-  width: 95vw;
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.gameOfWheel .btns button{
-  background-color: crimson;
-  color: white;
-}
-
-.wrapper{
-  width: 80px;
-  height: 80px;
-  background-color: white;
-  padding: 3em;
-  border-radius: 50%;
-  box-shadow: 0 4em 5em rgba(27,8,53,0.2);
-  margin: auto;
-  position: relative;
-  border: 1px solid transparent;
-  overflow: hidden;
-  z-index: -1;
-}
-
-/* cubic-bezier(0,.84,.10,.1) */
-
-.arrow{
-  width: 50px;
-  height: 50px;
-  clip-path: polygon(50% 5px, 5px 50%, 100% 100%);
-  background-color: gold;
-  transform: rotate(45deg);
-  margin: auto;
-}
-
-
-.container{
-  width: 100%;
-  height: 100%;
-  clip-path: polygon(50% 0%, 0% 150%, 100% 100%);
-  display: flex;
-  justify-content: center;
-  align-items:center;
-}
-
-.container .number{
-  z-index: 1;
-  height: 50%;
-  margin: auto;
-}
-
-.container .number p{
-  color: white;
-  font-size: x-large;
-}
-
-.container:nth-child(1) {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  /* background-color: rgb(231, 201, 222); */
-  /* clip-path: polygon(50% 0%, 0%, 100% 100%); */
-  background-color: green;
-}
-
-.container:nth-child(2){
-  position: absolute;
-  bottom: 50%;
-  left: 0;
-  background-color: blue;
-  /* background-color: rgb(59, 80, 126); */
-  transform: rotate(180deg);
-  /* clip-path: polygon(50% 0%, 0% 100%, 100% 100%); */
-}
-
-.container:nth-child(3){
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  background-color:  rgb(208, 69, 121, 90%);
-  transform: rotate(270deg);
-  /* clip-path: polygon(50% 0%, 0% 100%, 100% 100%); */
-}
-
-.container:nth-child(4){
-  position: absolute;
-  bottom: 0;
-  right: 50%;
-  background-color: saddlebrown;
-  /* background-color: rgb(133, 46, 106, 90%); */
-  transform: rotate(90deg);
-  /* clip-path: polygon(50% 0%, 0% 100%, 100% 100%); */
-}
-
-.container:nth-child(5){
-  position: absolute;
-  right: 35%;
-  top: 35%;
-  background-color: orange;
-  /* background-color: rgb(185, 168, 12); */
-  transform: rotate(45deg);
-  clip-path: polygon(50% 0%, 0% 150%, 100% 100%);
-}
-
-.container:nth-child(6){
-  position: absolute;
-  right: 35%;
-  bottom: 35%;
-  background-color: blueviolet;
-  /* background-color: rgb(73, 136, 160); */
-  transform: rotate(135deg);
-}
-
-.container:nth-child(7){
-  position: absolute;
-  left: 35%;
-  bottom: 35%;
-  background-color: teal;
-  transform: rotate(225deg);
-}
-
-.container:nth-child(8){
-  position: absolute;
-  left: 35%;
-  top: 35%;
-  background-color: maroon;
-  transform: rotate(315deg);
-}
-
-
-
-#wheel{
-  max-height: inherit;
-  width: inherit;
-  top: 0;
-  padding: 0;
-  
-}
-
-
 /*Slot Machine ---------------*/
 
-
 .slotMachine-container{
-  /* border: 4px solid rgb(255, 215, 0, 60%); */
   width: 80vw;
   height: 80px;
   background-color: rgb(255, 215, 0);
-  /* background: linear-gradient(45deg, rgba(176,179,184,1) 0%, rgba(224,161,62,1) 5%); */
   border-radius: 30px;
   position: relative;
   margin: auto;
@@ -640,7 +403,6 @@ small{
   align-items: center;
   margin: auto;
 }
-
 
 
 .slotMachine-row{
@@ -698,7 +460,7 @@ small{
   }
 }
 
-/* Games - Slot Machine & Wheel */
+/* Games - Slot Machine  */
 
 /* Footer */
 
@@ -714,9 +476,7 @@ small{
 
 /* rgb(245, 222, 179, 90%) ----- color for premium */
 .footermenu-container .footer-buttons .btn{
-  /* background-color: rgb(128, 128, 128, 30%); */
   background-color: rgb(128, 0, 128, 20%);
-  /* border-bottom: 1px solid rgb(128, 0, 128, 30%); */
   width: 32%;
   border-radius: 10px;
   height: fit-content;
@@ -726,7 +486,6 @@ small{
   display: block;
   background-color: white;
   border-bottom: 1px solid rgb(128, 0, 128, 30%);
-  /* border-radius: 10px; */
   width: 100%;
   margin: 0;
   font-weight: 500;
@@ -933,13 +692,10 @@ table tbody .order-done{
   -webkit-appearance: none;
   width: 100%;
   height: 10px;
-  /* background: linear-gradient(90deg, rgb(255, 0, 0) 60%, rgb(128, 128, 128, 20%) 40%); */
   outline: none;
-  /* opacity: 0.7; */
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
   border-radius: 20px;
-  /* box-shadow: 0px 1px 10px 1px black; */
 }
 
 
@@ -1040,194 +796,6 @@ table tbody .order-done{
 }
 /* Manage Menu */
 
-/* Dice */
-
-.dice-menu-items{
-  display: flex;
-  align-items: center;
-  background-color: rgb(255, 160, 122, 60%);
-  padding: 5px;
-  width: 95vw;
-  height: 30vh;
-  margin: auto;
-  border-radius: 10px;
-}
-
-.cube .front{
-  transform: translateZ(25px);
-}
-
-.cube .back{
-  transform: rotateX(-180deg) translateZ(25px);
-}
-
-.cube .right{
-  transform: rotateY(90deg) translateZ(25px);
-}
-
-.cube .left{
-  transform: rotateY(-90deg) translateZ(25px);
-}
-
-.cube .top{
-  transform: rotateX(90deg) translateZ(25px);
-}
-
-.cube .bottom{
-  transform: rotateX(-90deg) translateZ(25px);
-}
-
-.dice-container{
-  width: 90%;
-  height: 55px;
-  position: relative;
-  margin: 0 40px;
-}
-
-.cube{
-  width: 20px;
-  height: fit-content;
-  top: 10%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transition: transform 4s;
-  transform-origin: center;
-}
-
-.cube:hover{
-  cursor: pointer;
-  transform: rotateX(900deg) rotateY(2700deg) rotateZ(180deg);
-}
-
-.cube div{
-  background-color: black;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: auto;
-  width: 50px;
-  height: 50px;
-  border: 2px solid black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 500%;
-  text-align: center;
-  border-radius: 10px;
-}
-
-.dot{
-  display: block;
-  position: absolute;
-  width: 7.5px;
-  height: 7.5px;
-  background: gold;
-  border-radius: 15px;
-}
-
-.front .dot1{
-  top: 21.25px;
-  left: 21.25px;
-}
-
-.back .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.back .dot2{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-.right .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.right .dot2{
-  top: 21.25px;
-  left: 21.25px;
-}
-
-.right .dot3{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-.left .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.left .dot2{
-  top: 11.25px;
-  left: 31.25px;
-}
-
-.left .dot3{
-  top: 31.25px;
-  left: 11.25px;
-}
-
-.left .dot4{
-  top: 31.25px;
-  left: 31.25px;
-}
-.top .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.top .dot2{
-  top: 11.25px;
-  left: 31.25px;
-}
-
-.top .dot3{
-  top: 21.25px;
-  left: 21.25px;
-}
-
-.top .dot4{
-  top: 31.25px;
-  left: 11.25px;
-}
-
-.top .dot5{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-.bottom .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.bottom .dot2{
-  top: 11.25px;
-  left: 21.25px;
-}
-
-.bottom .dot3{
-  top: 11.25px;
-  left: 31.25px;
-}
-
-.bottom .dot4{
-  top: 31.25px;
-  left: 11.25px;
-}
-
-.bottom .dot5{
-  top: 31.25px;
-  left: 21.25px;
-}
-
-.bottom .dot6{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-/* Dice */
 
 .box{
   width: 20px;
@@ -1300,12 +868,10 @@ table tbody .order-done{
   background-color: gold;
   width: 180px;
   height: 175px;
-  /* box-shadow: 10px 0px 60px 0px rgba(0, 0, 0, 0.30); */
   border-radius: 30px;
   background-size: cover;
   background-position: center;
   margin: auto;
-  /* background-image: url('./icons/momo.jpeg'); */
 }
 
 .card .item-description{

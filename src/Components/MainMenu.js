@@ -136,7 +136,7 @@ function MainMenu() {
 
     const changeIcons = () =>{
         setCountInterval((prevState)=> prevState + 1)
-        if (countRef.current <5){
+        if (countRef.current <10){
             const icon1 = allIcons[Math.floor(Math.random() * (4 - 0 + 1)) + 0]
             const icon2 = allIcons[Math.floor(Math.random() * (4 - 0 + 1)) + 0]
             const icon3 = allIcons[Math.floor(Math.random() * (4 - 0 + 1)) + 0]
