@@ -10,7 +10,7 @@ function OrderItems ({items}){
                 <div className="order-description">
                     <p>{items.itemName}</p>
                     <small>{items?.qty}</small> <br/>
-                    <small className='description'>{items?.price} yen</small>
+                    <small className='description'>{items?.price * items?.qty} yen</small>
             </div>
         </div>
     )

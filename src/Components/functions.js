@@ -53,7 +53,7 @@ export const printResults=(icons)=>{
 }
 
 export const rollSlotMachine =(setImgClassName, changeIcons, setCountInterval, setButtonState, icons)=>{
-    new Audio(slotsound).play()
+    // new Audio(slotsound).play()
     setImgClassName('rolling')
     let intervalTime;
     

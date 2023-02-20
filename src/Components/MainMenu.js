@@ -125,8 +125,28 @@ function MainMenu() {
             name:'chilly'
         },
         {
+            img: chilly,
+            name:'chilly'
+        },
+        {
+            img: chilly,
+            name:'chilly'
+        },
+        {
             img:eggplant,
             name: 'eggplant'
+        },
+        {
+            img:greenTea,
+            name: 'greenTea'
+        },
+        {
+            img:greenTea,
+            name: 'greenTea'
+        },
+        {
+            img:greenTea,
+            name: 'greenTea'
         },
         {
             img:greenTea,
@@ -137,9 +157,9 @@ function MainMenu() {
     const changeIcons = () =>{
         setCountInterval((prevState)=> prevState + 1)
         if (countRef.current <10){
-            const icon1 = allIcons[Math.floor(Math.random() * (4 - 0 + 1)) + 0]
-            const icon2 = allIcons[Math.floor(Math.random() * (4 - 0 + 1)) + 0]
-            const icon3 = allIcons[Math.floor(Math.random() * (4 - 0 + 1)) + 0]
+            const icon1 = allIcons[Math.floor(Math.random() * (9 - 0 + 1)) + 0]
+            const icon2 = allIcons[Math.floor(Math.random() * (9 - 0 + 1)) + 0]
+            const icon3 = allIcons[Math.floor(Math.random() * (9 - 0 + 1)) + 0]
             let iconArray = [icon1, icon2, icon3]
             setIcons(iconArray)
             return 
