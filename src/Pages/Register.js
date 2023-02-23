@@ -15,7 +15,7 @@ function Register() {
         let urlArray=[]
         const urlName = (formData.shopName).replace(/\s/g, '')
         for(let i=1; i<=5; i++){
-            let url = `https://mymenuserver-xu2x.onrender.com/${urlName}/${i}`
+            let url = `https://mymenu-v6k6.onrender.com/${urlName}/${i}`
             QRCode.toDataURL(url,{
                 width: 280,
                 margin:1

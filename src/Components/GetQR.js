@@ -35,7 +35,7 @@ function GetQR() {
         let numberofQR = Number(newQR) + 3
         let urlArray=[]
         for(let i=4; i<=numberofQR; i++){
-            let url = `https://mymenuserver-xu2x.onrender.com/${email}/${i}`
+            let url = `https://mymenu-v6k6.onrender.com/${email}/${i}`
             QRCode.toDataURL(url,{
                 width: 280,
                 margin:1
