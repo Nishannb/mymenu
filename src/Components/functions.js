@@ -6,12 +6,13 @@ import eggplant from '../icons/eggplant.png'
 
 export const ReturnQty=({cartItems, item})=>{
     const QTY =()=>{
+        let total = 0
         for(let items of cartItems){
             if(items.itemName === item){
-                return items.qty
+                total+= items.qty
             }
         }
-        return 0
+        return total
     } 
     return (
         QTY()

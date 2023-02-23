@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavBar from '../Components/NavBar'
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import MakeSetMealPack from '../Components/MakeSetMealPack';
 
 function AdminMenu() {
 
-    const [cookies] = useCookies(['user'])
+    const [cookies, setCookies, removeCookies] = useCookies(['user'])
+    const [ fetchedAddOnOptions, setFetchedAddOnOptions] = useState('')
+    const [ addOnOptionsInput, setAddOnOptionsInput] = useState({})
+    const email = cookies.UserEmail
 
     const[menuData, setMenuData] = useState({
         email: cookies.UserEmail,
@@ -13,11 +17,19 @@ function AdminMenu() {
         price: '',
         description: '',
         foodCategories: '',
-        todaySpecial: ''
+        todaySpecial: '',
+        hasSetMenu: ''
     });
 
     const [selectedFile, setSelectedFile ] = useState()
 
+    const handleAddOnOptions = (e)=>{
+        const value = e.target.value
+        setAddOnOptionsInput((prevState)=>({
+            ...prevState,
+            [value]: value
+        }))
+    }
     const handleChange =(e)=>{
         const name = e.target.name
         const value = e.target.value
@@ -28,6 +40,20 @@ function AdminMenu() {
         }))
     }
 
+    const fetchAddOnOptions = async()=>{
+        try {
+            const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchaddonoptions', {params: {email:email}})
+            setFetchedAddOnOptions(response.data.sendData)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(()=>{
+        fetchAddOnOptions()
+    },[menuData.foodCategories === 'Set menu'])
+
     const handleFile =(e)=>{
         const file = e.target.files[0]
         setSelectedFile(file)
@@ -36,13 +62,13 @@ function AdminMenu() {
     const publishItemsForMenu = async(e)=>{
         e.preventDefault()
         try{
-
             const formData = new FormData();
             formData.append('email', menuData.email )
             formData.append('itemName', menuData.itemName)
             formData.append('price', menuData.price)
             formData.append('description', menuData.description)
             formData.append('foodCategories', menuData.foodCategories)
+            formData.append('hasSetMenu', JSON.stringify(addOnOptionsInput))
             formData.append('foodimage', selectedFile)
             
             const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/menu', formData )
@@ -55,7 +81,7 @@ function AdminMenu() {
     }
   return (
     <div className='adminmenu-container'>
-        <NavBar navBarItem='Back to Manage' />
+        <NavBar navBarItem='Back to Manage' leftBarItem='Logout' />
         <div className="addmenu-card">
             <form onSubmit={publishItemsForMenu} encType="multipart/form-data" >
                 <h2>Add To Your Menu</h2>
@@ -68,11 +94,14 @@ function AdminMenu() {
                     <option value="Side menu">Side Menu</option>
                     <option value="Drinks">Drinks</option>
                 </select>
+                { menuData.foodCategories === 'Set menu' && <small>Check all Add On option required for this item.</small> }
+                { menuData.foodCategories === 'Set menu' && fetchedAddOnOptions && fetchedAddOnOptions.map((addOn)=> <fieldset key={addOn.optionName}><input type='checkbox' value={addOn.optionName} onClick={handleAddOnOptions} /> <label >{addOn.optionName}</label> </fieldset> ) }
                 <textarea name="description" id="description" value={menuData.description} cols="10" rows="5" onChange={handleChange} />
                 <div className="btns">
                     <button type='submit' className='publish' onClick={publishItemsForMenu} >Publish Menu</button>
                 </div>
             </form>
+            <MakeSetMealPack />
         </div>
     </div>
   )

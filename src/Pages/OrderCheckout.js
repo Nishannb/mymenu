@@ -5,13 +5,18 @@ import NavBar from '../Components/NavBar'
 import Slider from '../Components/Slider'
 
 function OrderItems ({items}){
+    let remarks =[]
+    if(items.remarks !== 'no remarks'){
+        remarks = (JSON.parse(items.remarks))
+    }
     return (
         <div className="menu">
                 <div className="order-description">
-                    <p>{items.itemName}</p>
-                    <small>{items?.qty}</small> <br/>
+                    <p>{items.itemName}<small>{remarks.map((remark)=><small key={remark}>{remark}</small> )} </small></p>
+                    <small>x {items?.qty}</small> <br/>
                     <small className='description'>{items?.price * items?.qty} yen</small>
-            </div>
+                </div>
+            <h6>{items.discount}% off</h6>
         </div>
     )
 }
@@ -43,13 +48,13 @@ function OrderCheckout() {
 
   return (
     <>
-        <NavBar navBarItem='home' />
+        <NavBar navBarItem='Home' />
         <FoodMeter level={spiceLevel} />
         <Slider />
         <div className='orders-container'>
             <div className="orders-card">
                 { !ordersList.length && <p>No Items have been added yet</p> }
-               { ordersList && ordersList.map((items)=><OrderItems items={items} key={items.itemName} />) }
+               { ordersList && ordersList.map((items)=><OrderItems items={items} key={`${items.itemName}${items.remarks}`} />) }
             </div>
             {ordersList && <div className="orderbutton">
                 <form action="">

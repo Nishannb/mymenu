@@ -8,13 +8,14 @@ function Register() {
 
     let navigate = useNavigate('')
 
-    const [ firstFiveQR, setFirstFiveQR ] = useState([])
+    const [ firstThreeQR, setFirstThreeQR ] = useState([])
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
     const generateQRCode =()=>{
         let urlArray=[]
+        const urlName = (formData.shopName).replace(/\s/g, '')
         for(let i=1; i<=5; i++){
-            let url = `https://mymenuserver-xu2x.onrender.com/${formData.shopName}/${i}`
+            let url = `https://mymenuserver-xu2x.onrender.com/${urlName}/${i}`
             QRCode.toDataURL(url,{
                 width: 280,
                 margin:1
@@ -23,7 +24,7 @@ function Register() {
             urlArray.push(url)
             })
         }
-        setFirstFiveQR(urlArray)
+        setFirstThreeQR(urlArray)
     }
 
     const[formData, setFormData] = useState({
@@ -54,7 +55,7 @@ function Register() {
     const handleSubmit = async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/register', {formData, firstFiveQR})
+            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/register', {formData, firstThreeQR})
             setCookie("UserEmail", response.data.UserId)
             setCookie("AuthToken", response.data.token)
 

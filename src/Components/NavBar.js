@@ -1,10 +1,12 @@
 import React from 'react'
 import logo from '../icons/logo.png'
 import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
-function NavBar ({navBarItem}) {
+function NavBar ({navBarItem, leftBarItem}) {
 
     let navigate = useNavigate('')
+    const [ cookies, setCookie, removeCookie] = useCookies(['user'])
 
     const handleClick=(e)=>{
       e.preventDefault()
@@ -15,6 +17,10 @@ function NavBar ({navBarItem}) {
         navigate('/admin/dashboard')
       } else if (toDo.includes("Receipt")){
         navigate('/admin/receipt')
+      } else if (toDo.includes("Logout")){
+        removeCookie('UserEmail')
+        removeCookie('AuthToken')
+        navigate('/admin/login')
       } else {
         const name = JSON.parse(localStorage.getItem('myMenuParams'))
         const id = JSON.parse(localStorage.getItem('myMenuTable'))
@@ -24,6 +30,9 @@ function NavBar ({navBarItem}) {
 
   return (
     <div className='navBar-container'>
+        {leftBarItem && <div className="order">
+          <button onClick={handleClick}>{leftBarItem}</button>
+        </div>}
         <div className="brand-name">
             <img src={logo} alt="logo" />
             <h2>myMenu</h2>

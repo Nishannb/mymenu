@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import FooterMenu from '../Components/FooterMenu';
 import MainMenu from '../Components/MainMenu';
 import Slot from '../Components/Slot';
@@ -10,18 +10,19 @@ import ConfettiFunc from '../Components/Confetti';
 
 function HomePageMenu() {
 
-  const { setFoodItems,  setSpecialItems, setAddOnMenu } = useContext(FoodMenuContext)
+  const { setFoodItems,  setSpecialItems, setAddOnMenu, setAddOnOptionsMenu} = useContext(FoodMenuContext)
   const { displayConfetti } = useContext(SlotMachineContext)
   const { name, id } = useParams()
 
   const fetchMenu = async()=>{
     try {
-      const response = await axios.get('https://mymenuserver-xu2x.onrender.com/', {params: {email:name}})
+      const response = await axios.get(`https://mymenuserver-xu2x.onrender.com/menu/${name}/${id}/`, {params: {email:name}})
       setFoodItems(response.data.fetchMenu)
       const specials = response.data.fetchMenu.menu.filter((item)=>item.todaySpecial === true)
       setSpecialItems(specials)
       const addOn = response.data.fetchMenu.menu.filter((item)=>item.isAddOn === true)
       setAddOnMenu(addOn)
+      setAddOnOptionsMenu(response.data.fetchMenu.addonoptions)
     } catch (error) {
       console.log(error)
     }

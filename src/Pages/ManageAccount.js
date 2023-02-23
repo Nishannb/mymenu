@@ -28,12 +28,23 @@ function ListItems({items, email}){
   }
 
   useEffect(()=>{
+    // Delete all ifs 
     if(items.todaySpecial) setIsChecked(true)
     if(items?.isAddOn) setIsAddOn(true)
   }, [])
 
   const handleDelete =(e)=>{
     console.log(e.target.parentElement.children[1].innerHTML)
+  }
+
+  const handleSetMenuChange=async(e)=>{
+    try {
+      const foodItem = e.target.parentElement.parentElement.children[1].innerHTML
+      const value = e.target.value
+      const response = await axios.post(`https://mymenuserver-xu2x.onrender.com/changesetmenu/`, {email:email, foodItem: foodItem, value: value})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return(
@@ -61,12 +72,14 @@ function ManageAccount() {
     try {
       const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchmenu', {params: {email:email}})
       setCategory(response.data.fetchMenu)
+      console.log(response.data.fetchMenu)
     } catch (error) {
       console.log(error)
     }
   }
 
   const changeMenu =(type)=>{
+    if(!type) return setShowMenu()
     const newCart = category.menu.filter(item => item.foodCategories.includes(type))
     setShowMenu(newCart)
   }
@@ -76,16 +89,16 @@ function ManageAccount() {
   }, [])
   return (
     <>
-        <NavBar />  
+        <NavBar leftBarItem='Logout'/>  
         <VNavigation />
         <div className="managemenu-container">
           <div className="heading">
             <h2>Manage Menu</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores velit dolor est rerum cupiditate ex, repellat sunt fugiat soluta pariatur. </p>
+            <p>From this Menu, you can change your menu such as changing today's special dish, adding items that can be included in coupons and set up items that are included in Set Meals that you offer. </p>
           </div>
           <div className="category-options">
             <ul>
-              <li onClick={()=>changeMenu('Set Menu')}>Main Menu</li>
+              <li onClick={()=>changeMenu('')}>Main Menu</li>
               <li onClick={()=>changeMenu("Side Menu")}>Side Menu</li>
               <li onClick={()=>changeMenu("Drinks")}>Drinks</li>
             </ul> 

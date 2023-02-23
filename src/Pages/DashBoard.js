@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 import io from 'socket.io-client'
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://mymenuserver-xu2x.onrender.com')
 
 
 function ListItems ({items, email}){
@@ -20,11 +20,13 @@ function ListItems ({items, email}){
             console.log(error)
         }
     }
+
     return (
         <tr className={!items.status ? '': 'order-done'}>
             <td>{items.food}</td>
-            <td>{items.qty}</td>
-            <td>{items.tableNo}</td>
+            <td>x {items.qty}</td>
+            <td>Table {items.tableNo}</td>
+            <td>{JSON.parse(items?.remarks).map(remark => `${remark} `)}</td>
             <td>{items.spiceLevel}</td>
             <td><button onClick={deleteItem}>{!items.status ? 'Served':'Done' }</button></td>
         </tr>
@@ -68,7 +70,7 @@ function DashBoard() {
 
   return (
     <div className='dashboard-container'>
-         <NavBar navBarItem='View Receipt' />
+         <NavBar navBarItem='View Receipt' leftBarItem='Logout'/>
          <VNavigation />
          <div className="orders-container">
             <table className="orders-card">
@@ -77,6 +79,7 @@ function DashBoard() {
                             <th>Food Item</th>
                             <th>QTY</th>
                             <th>Table No.</th>
+                            <th>Remarks</th>
                             <th>Spice</th>
                             <th>Status</th>
                         </tr>

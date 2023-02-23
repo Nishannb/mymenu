@@ -279,6 +279,12 @@ p{
   margin: 10px;
 }
 
+.menu h6{
+  display: block;
+  margin: 0;
+  color: red;
+}
+
 .wheel-card {
   background-color: rgb(144, 238, 144, 20%);;
   position: relative;
@@ -322,6 +328,17 @@ p{
 .menu .order-description p{
   width: 50%;
   color: #000;
+}
+
+.menu .order-description p small {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: black;
+  background-color: orange;
+  padding: 1px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-left: 2px;
 }
 
 
@@ -615,11 +632,11 @@ table tbody .order-done{
   background-color: antiquewhite;
   height: 92vh;
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
 }
 
 .addmenu-card form{
-  width: 90vw;
+  width: 50vw;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -655,6 +672,47 @@ table tbody .order-done{
   color: white;
   width: 40vw;
   margin-top: 10px;
+}
+
+.option-group-container{
+  width: 40vw;
+  background-color: white;
+  padding: 10px;
+  border-left: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+}
+
+.option-group-container .option-group-card{
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.option-group-card h3,
+.option-group-card label{
+  text-align: center;
+  color: gray;
+}
+
+.option-group-card .option-items{
+  display: flex;
+  justify-content: space-around;
+}
+
+.option-group-card input{
+  border: 1px solid rgb(0, 0, 0, 50%);
+  width: 80%;
+  margin: 5px;
+}
+
+.option-group-card .save{
+  background-color: orange;
+}
+
+.option-group-card .post{
+  background-color: green;
+  color: white;
 }
 
 
@@ -1107,3 +1165,82 @@ Element{
 }
 
 /* Receipt */
+
+
+.makeyourmeal-card{
+  border: 2px solid rgb(128, 128, 128, 40%);
+  border-radius: 10px;
+  width: 90vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.addon-container{
+  width: 100vw;
+  background-color: whitesmoke;
+  height: fit-content;
+  position: absolute;
+  top: 40%;
+  right: 0;
+  margin: auto;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 100px;
+  transition: all 1s ease-in-out;
+  font-size: 0.8rem;
+}
+
+.addon-container .addon-card h4{
+  text-align: center;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 0;
+  color: rgb(0, 0, 0, 80%);
+}
+
+.addon-card fieldset{
+  border-radius: 2px;
+  border: 1px solid transparent;
+  padding: 8px;
+  margin: 5px 10px;
+  background-color: rgb(255, 215, 0, 60%);
+  display: flex;
+}
+.options-section-card{
+  width: 90%;
+  margin: auto;
+}
+
+.options-section-card h3{
+  color: gray;
+  margin-bottom: 5px;
+}
+
+.addon-container .btn{
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0px 35px 0px;
+}
+
+.addon-container .btn button{
+  width: 40%;
+}
+
+.addon-container .btn .save{
+  background-color: rgb(0, 128, 0, 90%);
+  color: white;
+}
+
+.addon-container .btn .cancel{
+  background-color: orange;
+}
+
+
+
+
+
+
+
+
+

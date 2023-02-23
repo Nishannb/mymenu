@@ -13,6 +13,7 @@ import question from './icons/question.png'
 import GetQR from './Components/GetQR';
 import Error from './Components/Error';
 import Receipt from './Components/Receipt';
+import MakeSetMealPack from './Components/MakeSetMealPack';
 
 export const FoodMenuContext = createContext({})
 export const CartContext = createContext({})
@@ -26,6 +27,8 @@ function App() {
   const [ addOnMenu, setAddOnMenu ] = useState("")
   const [ cookies ] = useCookies(['user'])
   const [ cartItems, setCartItems ] = useState([])
+  const [ addOnOptionsMenu, setAddOnOptionsMenu ] = useState([])
+  const [ blurBackground, setBlurBackground] = useState(false)
 
   // Slot Machine States //
   const [ imgClassName, setImgClassName ] = useState('notrolling')
@@ -54,12 +57,13 @@ function App() {
 
   return (
     <div className="App">
-      <FoodMenuContext.Provider value={ { foodItems, setFoodItems, showItems, setShowItems, specialItems, setSpecialItems, addOnMenu, setAddOnMenu } }>
+      <FoodMenuContext.Provider value={ { foodItems, setFoodItems, addOnOptionsMenu, setAddOnOptionsMenu, showItems, setShowItems, specialItems, setSpecialItems, addOnMenu, setAddOnMenu, blurBackground, setBlurBackground } }>
         <CartContext.Provider value={{cartItems, setCartItems}}>
           <SlotMachineContext.Provider value={{icons, setIcons, imgClassName, setImgClassName, countInterval, setCountInterval, countRef, displayConfetti, setDisplayConfetti, slotDiscount, setSlotDiscount }}>
           <BrowserRouter>
             <Routes>
               <Route path='/:name/:id' element={<HomePageMenu />} />
+              <Route path='/makesetmeal' element={<MakeSetMealPack />} />
               <Route path='/checkout' element={<OrderCheckout />} />
               <Route path='/admin/login' element={<Login />} />
               <Route path='/admin/register' element={<Register />} />

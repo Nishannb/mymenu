@@ -13,7 +13,8 @@ function ListQR({qr, QRNum, isPremium}){
     return(
         <div className="qr-card">
             <img src={qr} alt={qr+QRNum}/>
-            <h4>QR for Table {QRNum + 1} <br /> <small>{ isPremium || QRNum < 6 ? '': '(Expired: Upgrade to Premium)'}</small></h4>
+            <figcaption><h3>Scan Me</h3></figcaption>
+            <h4>QR for Table {QRNum + 1} <br /> <small>{ isPremium || QRNum < 4 ? '': '(Expired: Upgrade to Premium)'}</small></h4>
             <a href={qr} download={`qrCode-table${QRNum + 1}.png`}>Download QR</a>
         </div>
     )
@@ -31,9 +32,9 @@ function GetQR() {
 
     const generateQRCode =async(e)=>{
         e.preventDefault()
-        let numberofQR = Number(newQR) + 5
+        let numberofQR = Number(newQR) + 3
         let urlArray=[]
-        for(let i=6; i<=numberofQR; i++){
+        for(let i=4; i<=numberofQR; i++){
             let url = `https://mymenuserver-xu2x.onrender.com/${email}/${i}`
             QRCode.toDataURL(url,{
                 width: 280,
@@ -72,7 +73,7 @@ function GetQR() {
 
   return (
     <>
-        <NavBar />
+        <NavBar leftBarItem='Logout' />
         <VNavigation />
         <div className='getqr-container'>
             <div className="getqr-card"> 
@@ -87,7 +88,7 @@ function GetQR() {
                     {qrCode && qrCode.map((qr)=> <ListQR key={qr} qr={qr} QRNum={qrCode.indexOf(qr)} isPremium={isPremium} /> ) }
                 </div>
                 {!isPremium &&  <div className="premiumaccount">
-                    <p className='premiumaccount-notice'> <strong>Notice: First 5 QR code of myMenu App will always be free.</strong> <br /> However, Under 'FIRST 50' campaign, we are also offering 70% off on our premium account subscription to our first 50 users. Get premium only at <span>¥4800</span> valid for next 3 month (¥1600/monthly).</p>
+                    <p className='premiumaccount-notice'> <strong>Notice: First 3 QR code of myMenu App will always be free.</strong> <br /> However, Under 'FIRST 50' campaign, we are also offering 70% off on our premium account subscription to our first 50 users. Get premium only at <span>¥4800</span> valid for next 3 month (¥1600/monthly).</p>
                     {displayPayment && <StripeContainer />}
                 </div>}
                 {!isPremium && <h4>Do you have need more table QR? Upgrade to Premium account. <span onClick={()=>setDisplayPayment(true)}>Click Here</span></h4>}
