@@ -16,7 +16,7 @@ function HomePageMenu() {
 
   const fetchMenu = async()=>{
     try {
-      const response = await axios.get(`https://mymenuserver-xu2x.onrender.com/menu/${name}/${id}/`, {params: {email:name}})
+      const response = await axios.get(`https://mymenuserver-xu2x.onrender.com/`, {params: {email:name}})
       setFoodItems(response.data.fetchMenu)
       const specials = response.data.fetchMenu.menu.filter((item)=>item.todaySpecial === true)
       setSpecialItems(specials)
