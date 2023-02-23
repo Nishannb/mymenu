@@ -14,7 +14,7 @@ function ListQR({qr, QRNum, isPremium}){
         <div className="qr-card">
             <img src={qr} alt={qr+QRNum}/>
             <figcaption><h3>Scan Me</h3></figcaption>
-            <h4>QR for Table {QRNum + 1} <br /> <small>{ isPremium || QRNum < 4 ? '': '(Expired: Upgrade to Premium)'}</small></h4>
+            <h4>QR for Table {QRNum + 1} <br /> <small>{ isPremium || QRNum < 3 ? '': '(Expired: Upgrade to Premium)'}</small></h4>
             <a href={qr} download={`qrCode-table${QRNum + 1}.png`}>Download QR</a>
         </div>
     )
