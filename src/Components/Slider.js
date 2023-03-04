@@ -21,8 +21,8 @@ function MakeSwipeCard({swiped, outOfFrame, items}){
                 <div className="item-description">
                     <h3>GET <span>{items.itemName}</span> <br /> with {selectedAddOn.itemName}</h3>
                     <div className="price-description">
-                        <p>{items.price + selectedAddOn.price} yen</p>
-                        <small>{Math.floor((items.price  + selectedAddOn.price)* 0.8)} yen</small>
+                        <p>{items.price + selectedAddOn.price}</p>
+                        <small>{Math.floor((items.price  + selectedAddOn.price)* 0.8)} </small>
                     </div>
                 </div> 
             </div>
@@ -41,7 +41,7 @@ function Slider() {
 
     const swiped =(dir, item, addOnItem)=>{
         if(dir === 'right' || dir === 'up' || dir === 'down'){
-            const coupon = `Save 20% on your next visit. Get ${item.itemName} and ${addOnItem.itemName}, just at ${Math.floor((item.price + addOnItem.price) * 0.7)} yen`
+            const coupon = `Save 20% on your next visit. Get ${item.itemName} and ${addOnItem.itemName}, just at ${Math.floor((item.price + addOnItem.price) * 0.7)}`
             setCoupon(coupon)
             setDisplaySwiper(false)
         }
@@ -63,7 +63,7 @@ function Slider() {
     const saveCoupon=async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/savecoupons', {email: userEmail, coupon: coupon})
+            const response = await axios.post('http://localhost:8080/savecoupons', {email: userEmail, coupon: coupon})
             setCouponSendSuccess(true)
         } catch (error) {
             console.log(error)

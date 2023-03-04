@@ -15,12 +15,12 @@ function Login() {
     const handleSubmit = async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/login', {userId, userPwd})
+            const response = await axios.post('http://localhost:8080/admin/login', {userId, userPwd})
             console.log(response.data.UserEmail,response.data.token)
             setCookie("UserEmail", response.data.UserEmail)
             setCookie("AuthToken", response.data.token)
 
-            navigate('/admin/dashboard');
+            navigate('/admin/manage');
             window.location.reload()
                
         } catch (error) {

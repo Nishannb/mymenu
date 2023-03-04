@@ -3,6 +3,9 @@ import NavBar from '../Components/NavBar'
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import MakeSetMealPack from '../Components/MakeSetMealPack';
+import { useContext } from 'react';
+import { ItemSelectedToEdit } from './Restaurants/AdminHomePage';
+import uuid from 'react-uuid';
 
 function AdminMenu() {
 
@@ -10,9 +13,12 @@ function AdminMenu() {
     const [ fetchedAddOnOptions, setFetchedAddOnOptions] = useState('')
     const [ addOnOptionsInput, setAddOnOptionsInput] = useState({})
     const email = cookies.UserEmail
+    const { editThisItem, setEditThisItem } = useContext(ItemSelectedToEdit)
+
 
     const[menuData, setMenuData] = useState({
         email: cookies.UserEmail,
+        id: 'mymenu123',
         itemName: '',
         price: '',
         description: '',
@@ -42,13 +48,25 @@ function AdminMenu() {
 
     const fetchAddOnOptions = async()=>{
         try {
-            const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchaddonoptions', {params: {email:email}})
+            const response = await axios.get('http://localhost:8080/fetchaddonoptions', {params: {email:email}})
             setFetchedAddOnOptions(response.data.sendData)
 
         } catch (error) {
             console.log(error)
         }
     }
+
+    useEffect(()=>{
+        if(editThisItem){
+            const item = {
+                id: editThisItem._id,
+                itemName: editThisItem.itemName,
+                price: editThisItem.price,
+                description: editThisItem.description
+            }
+            setMenuData(item)
+        }
+    }, [editThisItem])
 
     useEffect(()=>{
         fetchAddOnOptions()
@@ -60,18 +78,18 @@ function AdminMenu() {
     }
 
     const publishItemsForMenu = async(e)=>{
-        e.preventDefault()
+        e.preventDefault()  
         try{
             const formData = new FormData();
-            formData.append('email', menuData.email )
+            formData.append('email', email )
+            formData.append('id', menuData.id)
             formData.append('itemName', menuData.itemName)
             formData.append('price', menuData.price)
             formData.append('description', menuData.description)
             formData.append('foodCategories', menuData.foodCategories)
             formData.append('hasSetMenu', JSON.stringify(addOnOptionsInput))
             formData.append('foodimage', selectedFile)
-            
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/menu', formData )
+            const response = await axios.post('http://localhost:8080/admin/menu', formData )
 
             window.location.reload()
             
@@ -79,29 +97,43 @@ function AdminMenu() {
             console.log(e)
         }
     }
+
+    const handleDelete =async(id)=>{
+        try {
+          const response = await axios.post('http://localhost:8080/managemenu/del', {email:email, id: id})
+          window.location.reload()
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
   return (
     <div className='adminmenu-container'>
-        <NavBar navBarItem='Back to Manage' leftBarItem='Logout' />
         <div className="addmenu-card">
             <form onSubmit={publishItemsForMenu} encType="multipart/form-data" >
                 <h2>Add To Your Menu</h2>
+                <label htmlFor="itemName">Item Name* : </label>
                 <input type="text" placeholder='Item Name' name='itemName' value={menuData.itemName} onChange={handleChange} required />
-                <input type="Number" placeholder='price' name='price' value={menuData.price} onChange={handleChange} required/>
+                <label htmlFor="price">Price* : </label>
+                <input type="number" placeholder='price' name='price' value={menuData.price} onChange={handleChange} required/>
+                <label htmlFor="image">Image* : </label>
                 <input type="file" className="foodimage" name='image' onChange={ handleFile }  />
-                <select name="foodCategories" defaultValue={'Select One'} id='foodCategories'onChange={ handleChange } required>
-                    <option value="Select One" disabled >Select One</option>
+                <select name="foodCategories" defaultValue={'Select One'} id='foodCategories' onChange={ handleChange } required>
+                    <option value="Select One" disabled >Select One* </option>
                     <option value="Set menu">Set Menu</option>
                     <option value="Side menu">Side Menu</option>
                     <option value="Drinks">Drinks</option>
                 </select>
-                { menuData.foodCategories === 'Set menu' && <small>Check all Add On option required for this item.</small> }
-                { menuData.foodCategories === 'Set menu' && fetchedAddOnOptions && fetchedAddOnOptions.map((addOn)=> <fieldset key={addOn.optionName}><input type='checkbox' value={addOn.optionName} onClick={handleAddOnOptions} /> <label >{addOn.optionName}</label> </fieldset> ) }
+                { menuData.foodCategories === 'Set menu' && <small>Wait & Check all Add On option required for this item.</small> }
+                <div className="fieldset-choices">{ menuData.foodCategories === 'Set menu' && fetchedAddOnOptions && fetchedAddOnOptions.map((addOn)=> <fieldset key={addOn.optionName}><input type='checkbox' value={addOn.optionName} onClick={handleAddOnOptions} required/> <label >{addOn.optionName}</label> </fieldset> ) } </div>
+                <small className='textarea-label'>Please provide item description (optional): </small>
                 <textarea name="description" id="description" value={menuData.description} cols="10" rows="5" onChange={handleChange} />
                 <div className="btns">
-                    <button type='submit' className='publish' onClick={publishItemsForMenu} >Publish Menu</button>
+                    <button type='submit' className='publish' >{ editThisItem ? 'Edit': 'Publish'  } Menu</button>
+                    {editThisItem && <p className='delete' onClick={()=> handleDelete(editThisItem._id)}>Delete Item</p>}
                 </div>
+
             </form>
-            <MakeSetMealPack />
         </div>
     </div>
   )

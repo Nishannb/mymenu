@@ -74,7 +74,7 @@ export const PopUp=({handlePopUp, from})=> {
     if(from === 'Spice'){
         msg = 'Please inform us how much spice do you want in your food.'
     } else {
-        msg = `Get all chances to win Discounts on every order you place. All discounts will be invalid if any items from cart are taken out after discount recieved. Wish you all the luck!!!`
+        msg = `Get all chances to win Discounts on every order you place. Please note that all discounts will be invalid if any items from cart are taken out after discount recieved. Wish you all the luck!!!`
     }
     return (
       <div className="popup-card">

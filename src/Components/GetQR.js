@@ -45,7 +45,7 @@ function GetQR() {
             })
         }
         try {
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/newqr', {email:email, qr: urlArray});
+            const response = await axios.post('http://localhost:8080/newqr', {email:email, qr: urlArray});
             const success = response.status === 201;
             if(success) window.location.reload()
             
@@ -56,7 +56,7 @@ function GetQR() {
 
     const fetchRestaurantDetails = async ()=>{
         try {
-            const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchmenu', {params:{email:email}});
+            const response = await axios.get('http://localhost:8080/fetchmenu', {params:{email:email}});
             const qrData = response.data.fetchMenu.totalTable
             const shouldDisplayPremium = response.data.fetchMenu.accountType.isPremium
             setIsPremium(shouldDisplayPremium)
@@ -73,8 +73,8 @@ function GetQR() {
 
   return (
     <>
-        <NavBar leftBarItem='Logout' />
-        <VNavigation />
+        {/* <NavBar leftBarItem='Logout' />
+        <VNavigation /> */}
         <div className='getqr-container'>
             <div className="getqr-card"> 
                 <Message />

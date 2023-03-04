@@ -52,7 +52,7 @@ function MakeSetMealPack() {
             const storage = JSON.parse(localStorage.getItem('itemStorage'))
             if(storage.length === 0) return
             if(itemName.name) storage.push(itemName)
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/saveoptions', {email:email, optionName: optionName, optionItems: storage })
+            const response = await axios.post('http://localhost:8080/saveoptions', {email:email, optionName: optionName, optionItems: storage })
             localStorage.setItem('itemStorage', JSON.stringify([]))
             window.location.reload()
         } catch (error) {
@@ -68,7 +68,7 @@ function MakeSetMealPack() {
                 <label htmlFor="addon-group">Name your set menu option: </label>
                 <input type="text" placeholder='E.g Curry Options, Drinks Options' name='addon-group' onChange={(e)=>setOptionName(e.target.value)} />
                 <div className="option-items">
-                    <input type="text" placeholder='Name' name='name' value={itemName.name} onChange={(e)=>saveItemName(e)} />
+                    <input type="text" placeholder='AddOn Name' name='name' value={itemName.name} onChange={(e)=>saveItemName(e)} />
                     <input type="number" placeholder='Price' value={itemName.price} name='price' onChange={(e)=>saveItemName(e)} />
                 </div>
                 <div className="btns">

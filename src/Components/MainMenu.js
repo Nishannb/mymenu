@@ -139,8 +139,8 @@ export const ListItems =({items, changeIcons})=>{
             <div className="food">
                 <img src={items.itemImage[0].url} alt={items.itemName} />
                     <div className="food-description">
-                        <p>{items.itemName}</p>
-                        <small>{items.price} yen</small> <br/>
+                        <h5>{items.itemName}</h5>
+                        <small>{items.price}</small> <br/>
                         <small className='description'>{items.description}</small>
                     </div>
             </div>
@@ -160,7 +160,7 @@ export const ListItems =({items, changeIcons})=>{
                             { addOnItems.optionItems[0].optionItems.map((items)=> <fieldset key={items._id}>
                                     <input type='checkbox' id={items.name} value={JSON.stringify({optname: items.name, price: items.price})} onClick={handleAddOnOptions} />
                                     <label htmlFor={items.name}>{items.name}</label>
-                                    <p>{items.price} yen</p>
+                                    <p>{items.price}</p>
                                 </fieldset>) }
                         </div>)}
                     </div>  }

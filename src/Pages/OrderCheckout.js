@@ -14,7 +14,7 @@ function OrderItems ({items}){
                 <div className="order-description">
                     <p>{items.itemName}<small>{remarks.map((remark)=><small key={remark}>{remark}</small> )} </small></p>
                     <small>x {items?.qty}</small> <br/>
-                    <small className='description'>{items?.price * items?.qty} yen</small>
+                    <small className='description'>{items?.price * items?.qty}</small>
                 </div>
             <h6>{items.discount}% off</h6>
         </div>
@@ -37,7 +37,7 @@ function OrderCheckout() {
         try {
             const name = JSON.parse(localStorage.getItem('myMenuParams'))
             const id = JSON.parse(localStorage.getItem('myMenuTable'))
-            const response = await axios.post("https://mymenuserver-xu2x.onrender.com/placeorder", {ordersList, spiceLevel, name, id})
+            const response = await axios.post("http://localhost:8080/placeorder", {ordersList, spiceLevel, name, id})
             localStorage.setItem('List', JSON.stringify([]))
             window.location.reload()
             return

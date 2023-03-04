@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 import io from 'socket.io-client'
 
 
-const socket = io.connect('https://mymenuserver-xu2x.onrender.com')
+const socket = io.connect('http://localhost:8080')
 
 
 function ListItems ({items, email}){
@@ -14,7 +14,7 @@ function ListItems ({items, email}){
     const deleteItem =async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/clearorder', { items:items })
+            const response = await axios.post('http://localhost:8080/clearorder', { items:items })
             window.location.reload()
         } catch (error) {
             console.log(error)
@@ -56,7 +56,7 @@ function DashBoard() {
 
     const fetchOrders = async(e)=>{
         try {
-            const response = await axios.get('https://mymenuserver-xu2x.onrender.com/orders', {params: {email:email}})
+            const response = await axios.get('http://localhost:8080/orders', {params: {email:email}})
             setTableItems(response.data)
         } catch (error) {
             console.log(error)
@@ -70,8 +70,8 @@ function DashBoard() {
 
   return (
     <div className='dashboard-container'>
-         <NavBar navBarItem='View Receipt' leftBarItem='Logout'/>
-         <VNavigation />
+         {/* <NavBar navBarItem='View Receipt' leftBarItem='Logout'/>
+         <VNavigation /> */}
          <div className="orders-container">
             <table className="orders-card">
                     <thead>

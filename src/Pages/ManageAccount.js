@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import NavBar from '../Components/NavBar';
-import VNavigation from '../Components/VNavigation';
 import axios from 'axios';
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { ItemSelectedToEdit } from './Restaurants/AdminHomePage';
 
 function ListItems({items, email}){
 
   const [ isChecked, setIsChecked ] = useState('')
   const [ isAddOn, setIsAddOn ] = useState('')
+  const { setEditThisItem, setShowMenuEditInterface } = useContext(ItemSelectedToEdit)
+
+  const navigate = useNavigate()
 
   const toggleBox=async(e, todo)=>{
     let urlPath;
@@ -21,7 +24,7 @@ function ListItems({items, email}){
       setIsAddOn(!isAddOn)
     }
     try {
-      const response = await axios.post(`https://mymenuserver-xu2x.onrender.com/${urlPath}/`, {email:email, foodItem: foodItem })
+      const response = await axios.post(`http://localhost:8080/${urlPath}/`, {email:email, foodItem: foodItem })
     } catch (error) {
       console.log(error)
     }
@@ -33,28 +36,19 @@ function ListItems({items, email}){
     if(items?.isAddOn) setIsAddOn(true)
   }, [])
 
-  const handleDelete =(e)=>{
-    console.log(e.target.parentElement.children[1].innerHTML)
+  const turnOnEditMenuDisplayAndPopulate=()=>{
+    setShowMenuEditInterface(true)
+    setEditThisItem(items)
   }
 
-  const handleSetMenuChange=async(e)=>{
-    try {
-      const foodItem = e.target.parentElement.parentElement.children[1].innerHTML
-      const value = e.target.value
-      const response = await axios.post(`https://mymenuserver-xu2x.onrender.com/changesetmenu/`, {email:email, foodItem: foodItem, value: value})
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return(
-    <tr>
+    <tr onClick={turnOnEditMenuDisplayAndPopulate}>
       <td><img src={items.itemImage[0].url} alt={items.itemName} /></td>
       <td>{items.itemName}</td>
-      <td>{items.price} yen</td>
+      <td>{items.price}</td>
       <td><input type="checkbox" name="special" id="special" onChange={(e)=>toggleBox(e, 'specials')} checked={isChecked? 'checked': ''}  /></td>
       <td><input type="checkbox" name="addon" id="addon" onChange={(e)=>toggleBox(e, 'addon')} checked={isAddOn? 'checked': ''}  /></td> 
-      <td onClick={handleDelete}>delete</td>
   </tr>
   )
 }
@@ -65,14 +59,15 @@ function ManageAccount() {
   const [ showMenu, setShowMenu ] = useState()
   const [cookies] = useCookies(['user'])
   const email = cookies.UserEmail
+  const { setShowMenuEditInterface } = useContext(ItemSelectedToEdit)
+
 
   const navigate = useNavigate()
 
   const fetchMenu = async()=>{
     try {
-      const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchmenu', {params: {email:email}})
+      const response = await axios.get('http://localhost:8080/fetchmenu', {params: {email:email}})
       setCategory(response.data.fetchMenu)
-      console.log(response.data.fetchMenu)
     } catch (error) {
       console.log(error)
     }
@@ -89,8 +84,6 @@ function ManageAccount() {
   }, [])
   return (
     <>
-        <NavBar leftBarItem='Logout'/>  
-        <VNavigation />
         <div className="managemenu-container">
           <div className="heading">
             <h2>Manage Menu</h2>
@@ -102,7 +95,7 @@ function ManageAccount() {
               <li onClick={()=>changeMenu("Side Menu")}>Side Menu</li>
               <li onClick={()=>changeMenu("Drinks")}>Drinks</li>
             </ul> 
-            <button onClick={()=>navigate('/admin/menu')}> + </button>  
+            <button onClick={()=>setShowMenuEditInterface(true)}> + </button>  
           </div>
           <div className="menu-table">
             <table>
@@ -113,7 +106,6 @@ function ManageAccount() {
                   <th>Price</th>
                   <th>Today's Special</th>
                   <th>Coupon Addons</th>
-                  <th>Delete</th>
                 </tr>
               </thead>
               {showMenu && <tbody>

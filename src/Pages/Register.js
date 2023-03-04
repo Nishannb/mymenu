@@ -55,11 +55,11 @@ function Register() {
     const handleSubmit = async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/register', {formData, firstThreeQR})
+            const response = await axios.post('http://localhost:8080/admin/register', {formData, firstThreeQR})
             setCookie("UserEmail", response.data.UserId)
             setCookie("AuthToken", response.data.token)
 
-            navigate('/admin/getQR');
+            navigate('/admin/manage');
 
             window.location.reload()
                

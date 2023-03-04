@@ -13,7 +13,7 @@ function ListItems ({items}){
           <td>{items.food}</td>
           <td>{items.qty}</td>
           <td>{items?.discount}%</td>
-          <td>{discountPrice} yen</td>
+          <td>{discountPrice}</td>
       </tr>
   )
 }
@@ -28,7 +28,7 @@ function Receipt() {
 
   const fetchOrders = async(e)=>{
     try {
-        const response = await axios.get('https://mymenuserver-xu2x.onrender.com/orders', {params: {email:email}})
+        const response = await axios.get('http://localhost:8080/orders', {params: {email:email}})
         setTableItems(response.data)
     } catch (error) {
         console.log(error)
@@ -37,7 +37,7 @@ function Receipt() {
 
   const clearTableBill = async()=>{
     try {
-      const response = await axios.post('https://mymenuserver-xu2x.onrender.com/clearbill', {email:email, table: receipt})
+      const response = await axios.post('http://localhost:8080/clearbill', {email:email, table: receipt})
       window.location.reload()
   } catch (error) {
       console.log(error)
@@ -58,12 +58,13 @@ function Receipt() {
     fetchOrders()
   }, [])
 
+  console.log(totalBill)
+
   return (
     <>
-        <NavBar navBarItem='Back to Home' />
         <div className="input-form">
           <label htmlFor="tableNo">Table No:</label>
-          <input type="number" name='tableNo' placeholder='Table Number..' onChange={changeTableNumber } />
+          <input type="number" name='tableNo' placeholder='Enter Table Number..' onChange={changeTableNumber } />
           
         </div>
         <div className="orders-container">
@@ -82,12 +83,14 @@ function Receipt() {
                     </tbody>
                     
             </table>
-          </div>
-          {receipt && totalBill && <div className="billing">
-            <h4>Total: {totalBill ? totalBill: ''} yen</h4>
+            {receipt.length > 0 && totalBill && <div className="billing">
+            <h4>Total: {totalBill ? totalBill: ''}</h4>
             <p>The total already include discounts</p>
             <button onClick={clearTableBill}>Clear Table Bill</button>
           </div>}
+          {receipt.length === 0 && <p>Please enter respective table number to get receipt.</p>}
+          </div>
+          
     </>
   )
 }

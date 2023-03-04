@@ -7,6 +7,7 @@ import axios from 'axios';
 import { FoodMenuContext, SlotMachineContext } from '../App'
 import { useParams } from 'react-router-dom';
 import ConfettiFunc from '../Components/Confetti';
+import Dice from '../Components/Dice'
 
 function HomePageMenu() {
 
@@ -16,7 +17,7 @@ function HomePageMenu() {
 
   const fetchMenu = async()=>{
     try {
-      const response = await axios.get(`https://mymenuserver-xu2x.onrender.com/`, {params: {email:name}})
+      const response = await axios.get(`http://localhost:8080/`, {params: {email:name}})
       setFoodItems(response.data.fetchMenu)
       const specials = response.data.fetchMenu.menu.filter((item)=>item.todaySpecial === true)
       setSpecialItems(specials)
@@ -43,6 +44,7 @@ function HomePageMenu() {
         <NavBar navBarItem='Place Orders' />
         {displayConfetti && <ConfettiFunc />}
         <Slot />
+        {/* <Dice /> */}
         <FooterMenu />
         <MainMenu />
     </>
