@@ -1,12 +1,11 @@
-import React, {useState} from 'react'
-import NavBar from './NavBar'
+import React, {useState, useContext} from 'react'
 import QRCode from 'qrcode'
 import { useCookies } from 'react-cookie'
 import { useEffect } from 'react'
 import axios from 'axios'
-import VNavigation from './VNavigation'
 import Message from './Message'
 import StripeContainer from './StripeContainer'
+import { RestaurantInfoContext } from '../Pages/Restaurants/AdminHomePage'
 
 
 function ListQR({qr, QRNum, isPremium}){
@@ -27,6 +26,8 @@ function GetQR() {
     const [newQR, setNewQR ]= useState(0)
     const [ displayPayment, setDisplayPayment] = useState(false)
     const [ isPremium, setIsPremium] = useState(false)
+
+    const { restaurantInfo, setRestaurantInfo } = useContext(RestaurantInfoContext)
     
     const email = cookies.UserEmail
 
@@ -45,7 +46,7 @@ function GetQR() {
             })
         }
         try {
-            const response = await axios.post('http://localhost:8080/newqr', {email:email, qr: urlArray});
+            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/newqr', {email:email, qr: urlArray});
             const success = response.status === 201;
             if(success) window.location.reload()
             
@@ -56,9 +57,10 @@ function GetQR() {
 
     const fetchRestaurantDetails = async ()=>{
         try {
-            const response = await axios.get('http://localhost:8080/fetchmenu', {params:{email:email}});
+            const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchmenu', {params:{email:email}});
             const qrData = response.data.fetchMenu.totalTable
             const shouldDisplayPremium = response.data.fetchMenu.accountType.isPremium
+            setRestaurantInfo(response.data.fetchMenu)
             setIsPremium(shouldDisplayPremium)
             setQrCode(qrData)
         } catch (error) {
@@ -67,7 +69,15 @@ function GetQR() {
     }
 
     useEffect(()=>{
-        fetchRestaurantDetails()
+        if(restaurantInfo === 'All Menu'){
+            fetchRestaurantDetails()
+        } else {
+            const qrData = restaurantInfo.totalTable
+            const shouldDisplayPremium = restaurantInfo.accountType.isPremium
+            setIsPremium(shouldDisplayPremium)
+            setQrCode(qrData)
+        }
+        
     }, [])
 
 

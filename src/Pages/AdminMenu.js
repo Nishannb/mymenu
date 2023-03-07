@@ -4,8 +4,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import MakeSetMealPack from '../Components/MakeSetMealPack';
 import { useContext } from 'react';
-import { ItemSelectedToEdit } from './Restaurants/AdminHomePage';
-import uuid from 'react-uuid';
+import { ItemSelectedToEdit, RestaurantInfoContext } from './Restaurants/AdminHomePage';
 
 function AdminMenu() {
 
@@ -13,7 +12,8 @@ function AdminMenu() {
     const [ fetchedAddOnOptions, setFetchedAddOnOptions] = useState('')
     const [ addOnOptionsInput, setAddOnOptionsInput] = useState({})
     const email = cookies.UserEmail
-    const { editThisItem, setEditThisItem } = useContext(ItemSelectedToEdit)
+    const { editThisItem } = useContext(ItemSelectedToEdit)
+    // const { restaurantInfo } = useContext(RestaurantInfoContext)
 
 
     const[menuData, setMenuData] = useState({
@@ -48,7 +48,7 @@ function AdminMenu() {
 
     const fetchAddOnOptions = async()=>{
         try {
-            const response = await axios.get('http://localhost:8080/fetchaddonoptions', {params: {email:email}})
+            const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchaddonoptions', {params: {email:email}})
             setFetchedAddOnOptions(response.data.sendData)
 
         } catch (error) {
@@ -89,7 +89,7 @@ function AdminMenu() {
             formData.append('foodCategories', menuData.foodCategories)
             formData.append('hasSetMenu', JSON.stringify(addOnOptionsInput))
             formData.append('foodimage', selectedFile)
-            const response = await axios.post('http://localhost:8080/admin/menu', formData )
+            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/admin/menu', formData )
 
             window.location.reload()
             
@@ -100,7 +100,7 @@ function AdminMenu() {
 
     const handleDelete =async(id)=>{
         try {
-          const response = await axios.post('http://localhost:8080/managemenu/del', {email:email, id: id})
+          const response = await axios.post('https://mymenuserver-xu2x.onrender.com/managemenu/del', {email:email, id: id})
           window.location.reload()
         } catch (error) {
           console.log(error)

@@ -13,10 +13,6 @@ function NavBar ({navBarItem, leftBarItem}) {
       const toDo = e.target.innerHTML
       if(toDo.includes("Orders")){
         navigate('/checkout')
-      } else if (toDo.includes("Back")){
-        navigate('/admin/dashboard')
-      } else if (toDo.includes("Receipt")){
-        navigate('/admin/receipt')
       } else if (toDo.includes("Logout")){
         removeCookie('UserEmail')
         removeCookie('AuthToken')
@@ -35,7 +31,7 @@ function NavBar ({navBarItem, leftBarItem}) {
         </div>}
         <div className="brand-name">
             <img src={logo} alt="logo" />
-            <h2>myMenu</h2>
+            <h2>Jet Menu</h2>
         </div>
         <div className="order">
           {navBarItem && <button onClick={handleClick}>{navBarItem}</button>}

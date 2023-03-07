@@ -41,7 +41,7 @@ function Payments() {
         if(!error){
             try{
                 const { id } = paymentMethod
-                const response = await axios.post('http://localhost:8080/payments', {
+                const response = await axios.post('https://mymenuserver-xu2x.onrender.com/payments', {
                     amount: 4800,
                     id: id,
                     email: email

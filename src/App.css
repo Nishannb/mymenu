@@ -536,6 +536,16 @@ p{
   height: 80%;
 }
 
+.boarding-container .boarding-form a{
+  background-color: orange;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
 .boarding-form .heading p{
   color: aliceblue;
   margin: auto;
@@ -589,10 +599,10 @@ p{
 }
 
 .orders-container{
-  width: 80vw;
+  width: 75vw;
   height: fit-content;
   min-height: 80vh;
-  margin: 30px;
+  margin: 20px 15px;
 }
 
 .orders-container h2{
@@ -634,7 +644,7 @@ table tbody .order-done{
 .manage-menu-container{
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .manage-menu-container p{
@@ -680,7 +690,7 @@ table tbody .order-done{
 }
 
 .addmenu-card form{
-  width: 35vw;
+  width: 25vw;
   display: flex;
   flex-direction: column;
 }
@@ -742,14 +752,14 @@ table tbody .order-done{
 .addmenu-card .publish{
   background-color: orange;
   color: white;
-  width: 150px;
+  width: 100px;
   margin: 10px auto 0px 0px;
 }
 
 .addmenu-card .delete{
   background-color: red;
   color: white;
-  width: 150px;
+  width: 100px;
   margin: 10px auto 0px 0px;
   text-align: center;
   text-decoration: none;
@@ -899,7 +909,7 @@ table tbody .order-done{
 /* Manage Menu */
 
 .managemenu-container{
-  width: 50vw;
+  width: fit-content;
   height: fit-content;
   margin-left: 10px;
   padding: 5px;
@@ -1392,7 +1402,8 @@ Element{
 
 .homepageNavBar-navitems-card ul li{
   font-size: large;
-  font-weight: 500;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .homepageNavBar-navitems-card ul .start-trial{
@@ -1901,5 +1912,70 @@ Element{
   border: 1px solid rgb(128, 128, 128, 30%);
 }
 
+/* Error Page section */
+.error{
+  background-color: rgb(255, 0, 0, 60%);
+  color: black;
+  text-align: center;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.error .instructions{
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+
+.error .instructions h4{
+  margin-bottom: 20px;
+  font-size: x-large;
+}
+
+.error .instructions a{
+  cursor: pointer;
+  font-size: larger;
+  font-weight: 500;
+  text-decoration: none;
+  color: purple;
+}
+
+.error p,
+.error small{
+  color: white;
+  margin: 10px;
+  width: 40vw;
+}
+
+
+
+/* Error Page section */
+
+/* Settings Page section */
+.settings-container{
+  margin: 20px 10px;
+}
+
+.settings-container p{
+  font-size: larger;
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.settings-container .games{
+  margin: 10px;
+  background-color: rgb(128, 128, 128, 30%);
+  padding: 10px 5px;
+}
+
+.settings-container .games label{
+  font-size: medium;
+  margin-left: 10px;
+}
+
+/* Settings Page section */
 

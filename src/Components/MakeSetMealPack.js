@@ -52,7 +52,7 @@ function MakeSetMealPack() {
             const storage = JSON.parse(localStorage.getItem('itemStorage'))
             if(storage.length === 0) return
             if(itemName.name) storage.push(itemName)
-            const response = await axios.post('http://localhost:8080/saveoptions', {email:email, optionName: optionName, optionItems: storage })
+            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/saveoptions', {email:email, optionName: optionName, optionItems: storage })
             localStorage.setItem('itemStorage', JSON.stringify([]))
             window.location.reload()
         } catch (error) {

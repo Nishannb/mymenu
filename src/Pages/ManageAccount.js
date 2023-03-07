@@ -24,7 +24,7 @@ function ListItems({items, email}){
       setIsAddOn(!isAddOn)
     }
     try {
-      const response = await axios.post(`http://localhost:8080/${urlPath}/`, {email:email, foodItem: foodItem })
+      const response = await axios.post(`https://mymenuserver-xu2x.onrender.com/${urlPath}/`, {email:email, foodItem: foodItem })
     } catch (error) {
       console.log(error)
     }
@@ -66,7 +66,7 @@ function ManageAccount() {
 
   const fetchMenu = async()=>{
     try {
-      const response = await axios.get('http://localhost:8080/fetchmenu', {params: {email:email}})
+      const response = await axios.get('https://mymenuserver-xu2x.onrender.com/fetchmenu', {params: {email:email}})
       setCategory(response.data.fetchMenu)
     } catch (error) {
       console.log(error)

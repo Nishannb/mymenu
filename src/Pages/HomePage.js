@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Footer from '../Components/Footer'
 import HomePageFirstBodySection from '../Components/HomePage/HomePageFirstBodySection'
 import HomePageInfoSection from '../Components/HomePage/HomePageInfoSection'
@@ -7,12 +7,14 @@ import HomePageMidBodySection from '../Components/HomePage/HomePageMidBodySectio
 import HomePageNavBar from '../Components/HomePage/HomePageNavBar'
 
 function HomePage() {
+
+  const solutions = useRef(null)
   return (
     <>
-        <HomePageNavBar />
+        <HomePageNavBar solutions={solutions} />
         {/* <HomePageMessage /> */}
         <HomePageFirstBodySection />
-        <HomePageMidBodySection />
+        <HomePageMidBodySection solutions={solutions} />
         <HomePageInfoSection />
     </>
   )

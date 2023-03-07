@@ -48,7 +48,7 @@ function Dice() {
 
     const fetchMenu = async()=>{
         try {
-          const response = await axios.get('http://localhost:8080/', {params: {email:"everest@gmail.com"}})
+          const response = await axios.get('https://mymenuserver-xu2x.onrender.com/', {params: {email:"everest@gmail.com"}})
           console.log(response.data.fetchMenu.menu)
         } catch (error) {
           console.log(error)

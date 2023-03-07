@@ -5,18 +5,11 @@ import { useCookies } from 'react-cookie';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import DashBoard from './Pages/DashBoard';
-import AdminMenu from './Pages/AdminMenu';
-import ManageAccount from './Pages/ManageAccount';
 import OrderCheckout from './Pages/OrderCheckout';
 import question from './icons/question.png'
-import GetQR from './Components/GetQR';
 import Error from './Components/Error';
-import Receipt from './Components/Receipt';
-import MakeSetMealPack from './Components/MakeSetMealPack';
 import HomePage from './Pages/HomePage';
 import Footer from './Components/Footer';
-import EditMenu from './Components/EditMenu';
 import AdminHomePage from './Pages/Restaurants/AdminHomePage';
 
 export const FoodMenuContext = createContext({})
@@ -68,18 +61,12 @@ function App() {
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='/:name/:id' element={<HomePageMenu />} />
-              <Route path='/makesetmeal' element={<MakeSetMealPack />} />
               <Route path='/checkout' element={<OrderCheckout />} />
               <Route path='/admin/login' element={<Login />} />
               <Route path='/admin/register' element={<Register />} />
-              {AuthToken && UserEmail && <Route path='/admin/dashboard' element={<DashBoard />} />}
-              {AuthToken && UserEmail && <Route path='/admin/menu' element={<AdminMenu />} />}
-              {AuthToken && UserEmail && <Route path='/admin/editmenu' element={<EditMenu />} />}
-              {/* {AuthToken && UserEmail && <Route path='/admin/manage' element={<ManageAccount />} />} */}
               {AuthToken && UserEmail && <Route path='/admin/manage' element={<AdminHomePage />} />}
-              {AuthToken && UserEmail && <Route path='/admin/getqr' element={<GetQR />} />}
-              {AuthToken && UserEmail && <Route path='/admin/receipt' element={<Receipt />} />}
               <Route path='*' element={<Error />} />
+              <Route path='/admin/*' element={<Error />} />
             </Routes>
           </BrowserRouter>
           </SlotMachineContext.Provider>

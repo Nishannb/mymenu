@@ -1,8 +1,8 @@
 import React from 'react'
 
-function HomePageMidBodySection() {
+function HomePageMidBodySection({solutions}) {
   return (
-    <div className='HomePageMidBodySection'>
+    <div ref={solutions} className='HomePageMidBodySection'>
         <h2>How restaurants are leveraging our product...</h2>
         <div className="services-section">
             <div className="services-card">

@@ -1,8 +1,9 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import FoodMeter from '../Components/FoodMeter'
 import NavBar from '../Components/NavBar'
 import Slider from '../Components/Slider'
+import { FoodMenuContext } from '../App'
 
 function OrderItems ({items}){
     let remarks =[]
@@ -26,6 +27,8 @@ function OrderCheckout() {
 
     const [ordersList, setOrdersList] = useState([])
     const [spiceLevel, setSpiceLevel ] = useState('Mild')
+    const { foodItems } = useContext(FoodMenuContext)
+
 
     useEffect(()=>{
         const orders = JSON.parse(localStorage.getItem("List"))
@@ -37,7 +40,7 @@ function OrderCheckout() {
         try {
             const name = JSON.parse(localStorage.getItem('myMenuParams'))
             const id = JSON.parse(localStorage.getItem('myMenuTable'))
-            const response = await axios.post("http://localhost:8080/placeorder", {ordersList, spiceLevel, name, id})
+            const response = await axios.post("https://mymenuserver-xu2x.onrender.com/placeorder", {ordersList, spiceLevel, name, id})
             localStorage.setItem('List', JSON.stringify([]))
             window.location.reload()
             return
@@ -50,7 +53,7 @@ function OrderCheckout() {
     <>
         <NavBar navBarItem='Home' />
         <FoodMeter level={spiceLevel} />
-        <Slider />
+        {foodItems.isCouponSliderAdded && <Slider />}
         <div className='orders-container'>
             <div className="orders-card">
                 { !ordersList.length && <p>No Items have been added yet</p> }

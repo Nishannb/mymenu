@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
+import { useContext } from 'react'
+import { RestaurantInfoContext } from '../Pages/Restaurants/AdminHomePage'
 
 
 function ListItems ({items}){
@@ -22,31 +24,28 @@ function Receipt() {
 
   const [cookies] = useCookies(['user'])
   const email = cookies.UserEmail 
-  const [ receipt, setReceipt ] = useState()
-  const [ tableItems, setTableItems ] = useState()
+  const [ receipt, setReceipt ] = useState(null)
   const [ totalBill, setTotalBill ]= useState(0)
 
-  const fetchOrders = async(e)=>{
-    try {
-        const response = await axios.get('http://localhost:8080/orders', {params: {email:email}})
-        setTableItems(response.data)
-    } catch (error) {
-        console.log(error)
-    }
-  }
+  // Data from Context
+  const { restaurantOrders } = useContext(RestaurantInfoContext)
+
 
   const clearTableBill = async()=>{
     try {
-      const response = await axios.post('http://localhost:8080/clearbill', {email:email, table: receipt})
-      window.location.reload()
+      const response = await axios.post('https://mymenuserver-xu2x.onrender.com/clearbill', {email:email, table: receipt})
+      setReceipt()
+
   } catch (error) {
       console.log(error)
   }
   }
 
-  const changeTableNumber =(e)=>{
+  const changeOrderList =(e)=>{
     let total = 0;
-    const filterItems = tableItems.filter((item)=>item.tableNo===Number(e.target.value))
+    let tableNum = Number(e.target.value)
+    if(tableNum === 0) return setReceipt()
+    const filterItems = restaurantOrders.filter((item)=>item.tableNo===tableNum)
     setReceipt(filterItems)
     for(let item of filterItems){
       let price = ((100- item.discount)/100) * item.price
@@ -54,17 +53,13 @@ function Receipt() {
     }
     setTotalBill(total)
   }
-  useEffect(()=>{
-    fetchOrders()
-  }, [])
 
-  console.log(totalBill)
 
   return (
     <>
         <div className="input-form">
           <label htmlFor="tableNo">Table No:</label>
-          <input type="number" name='tableNo' placeholder='Enter Table Number..' onChange={changeTableNumber } />
+          <input type="number" name='tableNo' placeholder='Enter Table Number..' onChange={changeOrderList } />
           
         </div>
         <div className="orders-container">
@@ -83,12 +78,12 @@ function Receipt() {
                     </tbody>
                     
             </table>
-            {receipt.length > 0 && totalBill && <div className="billing">
+            {receipt && totalBill && <div className="billing">
             <h4>Total: {totalBill ? totalBill: ''}</h4>
             <p>The total already include discounts</p>
             <button onClick={clearTableBill}>Clear Table Bill</button>
           </div>}
-          {receipt.length === 0 && <p>Please enter respective table number to get receipt.</p>}
+          {receipt && <p>Please enter respective table number to get receipt.</p>}
           </div>
           
     </>

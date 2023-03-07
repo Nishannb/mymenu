@@ -1,12 +1,12 @@
 import React,{ useState, useEffect } from 'react'
-import NavBar from '../Components/NavBar'
-import VNavigation from '../Components/VNavigation'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import io from 'socket.io-client'
+import { useContext } from 'react'
+import { RestaurantInfoContext } from './Restaurants/AdminHomePage'
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://mymenuserver-xu2x.onrender.com')
 
 
 function ListItems ({items, email}){
@@ -14,7 +14,7 @@ function ListItems ({items, email}){
     const deleteItem =async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:8080/clearorder', { items:items })
+            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/clearorder', { items:items })
             window.location.reload()
         } catch (error) {
             console.log(error)
@@ -39,6 +39,9 @@ function DashBoard() {
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const email = cookies.UserEmail
     
+    // Data from Context
+    const { restaurantOrders } = useContext(RestaurantInfoContext)
+    
     const sendMessage =()=>{
         socket.emit('SENDMSG',{message: 'hello'})
         joinRoom()
@@ -54,24 +57,21 @@ function DashBoard() {
         socket.emit('join_room', email)
     }
 
-    const fetchOrders = async(e)=>{
-        try {
-            const response = await axios.get('http://localhost:8080/orders', {params: {email:email}})
-            setTableItems(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const fetchOrders = async(e)=>{
+    //     try {
+    //         const response = await axios.get('https://mymenuserver-xu2x.onrender.com/orders', {params: {email:email}})
+    //         setTableItems(response.data)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
     
     useEffect(()=>{
-        fetchOrders()
         sendMessage()
     }, [])
 
   return (
     <div className='dashboard-container'>
-         {/* <NavBar navBarItem='View Receipt' leftBarItem='Logout'/>
-         <VNavigation /> */}
          <div className="orders-container">
             <table className="orders-card">
                     <thead>
@@ -86,12 +86,12 @@ function DashBoard() {
                     </thead>
                     
                     <tbody>
-                        { tableItems && tableItems.map((items)=> <ListItems key={items._id} items={items} email={email} />) }
+                        { restaurantOrders && restaurantOrders.map((items)=> <ListItems key={items._id} items={items} email={email} />) }
                         
                     </tbody>   
             </table>
             <div>
-                { !tableItems && <p>Select any table No for checking orders</p> }
+                { !restaurantOrders && <p>Select any table No for checking orders</p> }
             </div>
          </div>
     </div>

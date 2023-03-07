@@ -63,7 +63,7 @@ function Slider() {
     const saveCoupon=async(e)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:8080/savecoupons', {email: userEmail, coupon: coupon})
+            const response = await axios.post('https://mymenuserver-xu2x.onrender.com/savecoupons', {email: userEmail, coupon: coupon})
             setCouponSendSuccess(true)
         } catch (error) {
             console.log(error)
