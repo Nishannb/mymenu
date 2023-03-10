@@ -19,6 +19,7 @@ export const ListItems =({items, changeIcons})=>{
     const [ selectedOptionsRemarks, setSelectedOptionsRemarks] = useState([])
 
     const checkWinning =()=>{
+        setSlotDiscount()
         if(icons[0].name !== 'question' && icons[0].name === icons[1].name && icons[0].name === icons[2].name){
             setDisplayConfetti(true)
             const discount = printResults(icons)
@@ -145,7 +146,7 @@ export const ListItems =({items, changeIcons})=>{
                     </div>
             </div>
             <div className="btns">
-                <button disabled={buttonState} onClick={(e)=>removeCart(e,items)}>-</button>
+                <button disabled={buttonState} className='removeBtn' onClick={(e)=>removeCart(e,items)}>-</button>
                 <small>{cartItems ? <ReturnQty key={items._id} cartItems = {cartItems} item={items.itemName} />:0 }</small>
                 {!items.hasSetMenu[0] && <button disabled={buttonState} onClick={(e)=>addCart(e,items)}>+</button>}
                 {items.hasSetMenu[0] && <button disabled={buttonState} onClick={(e)=>askForOptions(e,items)}>+</button>}

@@ -257,7 +257,8 @@ p{
 }
 
 .food .food-description small{
-  color: rgb(128, 128, 128, 80%)
+  color: black;
+  font-weight: 500;
 }
 
 .menu-card .menu img {
@@ -275,6 +276,15 @@ p{
   display: flex;
   justify-content: space-between;
   max-width: 30vw;
+}
+
+.menu .btns button{
+  background-color: orange;
+  color: white;
+}
+
+.menu .btns .removeBtn{
+  background-color: rgb(0, 0, 0, 80%);
 }
 
 .menu .btns button,

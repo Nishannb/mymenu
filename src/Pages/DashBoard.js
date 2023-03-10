@@ -6,10 +6,12 @@ import { useContext } from 'react'
 import { RestaurantInfoContext } from './Restaurants/AdminHomePage'
 
 
-const socket = io.connect('https://mymenuserver-xu2x.onrender.com')
+const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
+    rejectUnauthorized: false
+})
 
 
-function ListItems ({items, email}){
+function ListItems ({items}){
 
     const deleteItem =async(e)=>{
         e.preventDefault()
@@ -26,7 +28,8 @@ function ListItems ({items, email}){
             <td>{items.food}</td>
             <td>x {items.qty}</td>
             <td>Table {items.tableNo}</td>
-            <td>{JSON.parse(items?.remarks).map(remark => `${remark} `)}</td>
+            { items.remarks && items?.remarks !== 'no remarks' &&  <td>{JSON.parse(items?.remarks).map(remark => `${remark} `)}</td>}
+            { items?.remarks === 'no remarks' && <td>no remark</td> }
             <td>{items.spiceLevel}</td>
             <td><button onClick={deleteItem}>{!items.status ? 'Served':'Done' }</button></td>
         </tr>
@@ -40,31 +43,26 @@ function DashBoard() {
     const email = cookies.UserEmail
     
     // Data from Context
-    const { restaurantOrders } = useContext(RestaurantInfoContext)
+    const { restaurantOrders, setRestaurantOrders } = useContext(RestaurantInfoContext)
     
     const sendMessage =()=>{
         socket.emit('SENDMSG',{message: 'hello'})
         joinRoom()
     }
 
+    // socket.on("receive_msg", (data)=>{
+    //     setRestaurantOrders(data.ListOfOrders)
+    // });
+
     useEffect(()=>{
         socket.on("receive_msg", (data)=>{
             setTableItems(data.ListOfOrders)
-        }) 
+        });
     }, [socket])
 
     const joinRoom = ()=>{
         socket.emit('join_room', email)
     }
-
-    // const fetchOrders = async(e)=>{
-    //     try {
-    //         const response = await axios.get('https://mymenuserver-xu2x.onrender.com/orders', {params: {email:email}})
-    //         setTableItems(response.data)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
     
     useEffect(()=>{
         sendMessage()
@@ -86,8 +84,9 @@ function DashBoard() {
                     </thead>
                     
                     <tbody>
-                        { restaurantOrders && restaurantOrders.map((items)=> <ListItems key={items._id} items={items} email={email} />) }
-                        
+                        { tableItems && tableItems.map((items)=> <ListItems key={items._id} items={items} />) }
+
+                        { restaurantOrders && restaurantOrders.map((items)=> <ListItems key={items._id} items={items} />) }
                     </tbody>   
             </table>
             <div>
