@@ -4,11 +4,13 @@ import { useCookies } from 'react-cookie'
 import io from 'socket.io-client'
 import { useContext } from 'react'
 import { RestaurantInfoContext } from './Restaurants/AdminHomePage'
+import order from '../assests/order.mp3'
 
 
-const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
-    rejectUnauthorized: false
-})
+const socket = io.connect('https://mymenuserver-xu2x.onrender.com:*', {
+    rejectUnauthorized: false,
+    // transports: ['websocket'],
+    })
 
 
 function ListItems ({items}){
@@ -50,12 +52,10 @@ function DashBoard() {
         joinRoom()
     }
 
-    // socket.on("receive_msg", (data)=>{
-    //     setRestaurantOrders(data.ListOfOrders)
-    // });
 
     useEffect(()=>{
         socket.on("receive_msg", (data)=>{
+            new Audio(order).play()
             setTableItems(data.ListOfOrders)
         });
     }, [socket])
