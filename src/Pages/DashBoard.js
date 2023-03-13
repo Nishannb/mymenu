@@ -92,6 +92,18 @@ function DashBoard() {
         sendMessage()
     }, [])
 
+    useEffect(()=>{
+        socket.on('error', function(){
+            console.log('inside running useeffect reconnecting')
+            socket.socket.connect();
+          });
+    
+        socket.on('disconnect', function(){
+            console.log('inside running useeffect disconnected and reconnecting')
+            socket.socket.connect();
+         });
+    })
+
   return (
     <div className='dashboard-container'>
          <div className="orders-container">
