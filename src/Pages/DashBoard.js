@@ -13,6 +13,10 @@ const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     vary: origin,
     })
 
+    socket.on('error', function(){
+        console.log('reconnecting')
+        socket.socket.reconnect();
+      });
 
 function ListItems ({items}){
 
