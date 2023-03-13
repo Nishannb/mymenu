@@ -9,7 +9,7 @@ import order from '../assests/order.mp3'
 
 const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     rejectUnauthorized: false,
-    transports: ['polling'],
+    transports: ["websocket",'polling'],
     vary: origin,
     reconnection: true,
     reconnectionDelay: 5000,
