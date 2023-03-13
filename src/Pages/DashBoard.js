@@ -11,12 +11,20 @@ const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     rejectUnauthorized: false,
     transports: ['websocket', 'polling'],
     vary: origin,
+    'reconnection': true,
+    'reconnectionDelay': 500,
+    'reconnectionAttempts': 100
     })
 
     socket.on('error', function(){
         console.log('reconnecting')
-        socket.socket.reconnect();
+        socket.socket.connect();
       });
+
+    socket.on('disconnect', function(){
+        console.log('disconnected and reconnecting')
+        socket.socket.connect();
+     });
 
 function ListItems ({items}){
 
@@ -64,6 +72,16 @@ function DashBoard() {
             console.log('data', data)
             setRestaurantOrders(data.ListOfOrders)
         });
+
+        socket.on('error', function(){
+            console.log('inside useeffect reconnecting')
+            socket.socket.connect();
+          });
+    
+        socket.on('disconnect', function(){
+            console.log('inside useeffect disconnected and reconnecting')
+            socket.socket.connect();
+         });
     }, [socket])
 
     const joinRoom = ()=>{
