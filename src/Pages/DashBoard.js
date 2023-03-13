@@ -11,20 +11,54 @@ const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     rejectUnauthorized: false,
     transports: ['websocket', 'polling'],
     vary: origin,
-    'reconnection': true,
-    'reconnectionDelay': 500,
-    'reconnectionAttempts': 100
+    reconnection: true,
+    reconnectionDelay: 5000,
+    reconnectionAttempts: Infinity,
+    randomizationFactor: 0.5,
     })
 
-    socket.on('error', function(){
-        console.log('reconnecting')
-        socket.socket.connect();
+    socket.on('connect', function(){
+        console.log('connected')
+        // socket.socket.connect();
       });
 
     socket.on('disconnect', function(){
-        console.log('disconnected and reconnecting')
-        socket.socket.connect();
+        console.log('disconnected')
+        // socket.socket.connect();
      });
+     socket.on('reconnect', function(){
+        console.log('reconnected')
+        // socket.socket.connect();
+      });
+
+    socket.on('connecting', function(){
+        console.log('connecting')
+        // socket.socket.connect();
+     });
+     socket.on('connect_failed', function(){
+        console.log('connect failed')
+        // socket.socket.connect();
+      });
+
+    socket.on('close', function(){
+        console.log('close')
+        // socket.socket.connect();
+     });
+     socket.on('reconnecting', function(){
+        console.log('reconnecting')
+        // socket.socket.connect();
+      });
+
+    socket.on('reconnect_failed', function(){
+        console.log('reconnect failed')
+        // socket.socket.connect();
+     });
+     socket.on("connect_error", () => {
+        console.log('connect error')
+        socket.io.opts.transports = ["polling", "websocket"];
+      });
+    
+
 
 function ListItems ({items}){
 
@@ -73,14 +107,54 @@ function DashBoard() {
             setRestaurantOrders(data.ListOfOrders)
         });
 
-        socket.on('error', function(){
-            console.log('inside useeffect reconnecting')
-            socket.socket.connect();
+        // socket.on('error', function(){
+        //     console.log('inside useeffect reconnecting')
+        //     socket.socket.connect();
+        //   });
+    
+        // socket.on('disconnect', function(){
+        //     console.log('inside useeffect disconnected and reconnecting')
+        //     socket.socket.connect();
+        //  });
+        socket.on("connect_error", () => {
+            console.log('connect error')
+            socket.io.opts.transports = ["polling", "websocket"];
+          });
+        socket.on('connect', function(){
+            console.log('connected')
+            // socket.socket.connect();
           });
     
         socket.on('disconnect', function(){
-            console.log('inside useeffect disconnected and reconnecting')
-            socket.socket.connect();
+            console.log('disconnected')
+            // socket.socket.connect();
+         });
+         socket.on('reconnect', function(){
+            console.log('reconnected')
+            // socket.socket.connect();
+          });
+    
+        socket.on('connecting', function(){
+            console.log('connecting')
+            // socket.socket.connect();
+         });
+         socket.on('connect_failed', function(){
+            console.log('connect failed')
+            // socket.socket.connect();
+          });
+    
+        socket.on('close', function(){
+            console.log('close')
+            // socket.socket.connect();
+         });
+         socket.on('reconnecting', function(){
+            console.log('reconnecting')
+            // socket.socket.connect();
+          });
+    
+        socket.on('reconnect_failed', function(){
+            console.log('reconnect failed')
+            // socket.socket.connect();
          });
     }, [socket])
 
@@ -93,15 +167,46 @@ function DashBoard() {
     }, [])
 
     useEffect(()=>{
-        socket.on('error', function(){
-            console.log('inside running useeffect reconnecting')
-            socket.socket.connect();
+        socket.on('connect', function(){
+            console.log('connected')
+            // socket.socket.connect();
           });
     
         socket.on('disconnect', function(){
-            console.log('inside running useeffect disconnected and reconnecting')
-            socket.socket.connect();
+            console.log('disconnected')
+            // socket.socket.connect();
          });
+         socket.on('reconnect', function(){
+            console.log('reconnected')
+            // socket.socket.connect();
+          });
+    
+        socket.on('connecting', function(){
+            console.log('connecting')
+            // socket.socket.connect();
+         });
+         socket.on('connect_failed', function(){
+            console.log('connect failed')
+            // socket.socket.connect();
+          });
+    
+        socket.on('close', function(){
+            console.log('close')
+            // socket.socket.connect();
+         });
+         socket.on('reconnecting', function(){
+            console.log('reconnecting')
+            // socket.socket.connect();
+          });
+    
+        socket.on('reconnect_failed', function(){
+            console.log('reconnect failed')
+            // socket.socket.connect();
+         });
+         socket.on("connect_error", () => {
+            console.log('connect error')
+            socket.io.opts.transports = ["polling", "websocket"];
+          });
     })
 
   return (
