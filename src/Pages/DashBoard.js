@@ -7,7 +7,7 @@ import { RestaurantInfoContext } from './Restaurants/AdminHomePage'
 import order from '../assests/order.mp3'
 
 
-const socket = io.connect('https://mymenuserver-xu2x.onrender.com:*', {
+const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     rejectUnauthorized: false,
     transports: ['websocket', 'polling'],
     vary: origin,
@@ -57,7 +57,8 @@ function DashBoard() {
     useEffect(()=>{
         socket.on("receive_msg", (data)=>{
             new Audio(order).play()
-            setTableItems(data.ListOfOrders)
+            console.log('data', data)
+            setRestaurantOrders(data.ListOfOrders)
         });
     }, [socket])
 
