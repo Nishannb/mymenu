@@ -17,49 +17,23 @@ const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     randomizationFactor: 0.5,
     })
 
-    socket.on('connect', function(){
-        console.log('connected')
-        // socket.socket.connect();
-      });
-
-    socket.on('disconnect', function(){
-        console.log('disconnected')
-        // socket.socket.connect();
-     });
-     socket.on('reconnect', function(){
-        console.log('reconnected')
-        // socket.socket.connect();
-      });
-
-    socket.on('connecting', function(){
-        console.log('connecting')
-        // socket.socket.connect();
-     });
-     socket.on('connect_failed', function(){
-        console.log('connect failed')
-        // socket.socket.connect();
-      });
-
-    socket.on('close', function(){
-        console.log('close')
-        // socket.socket.connect();
-     });
-     socket.on('reconnecting', function(){
-        console.log('reconnecting')
-        // socket.socket.connect();
-      });
-
-    socket.on('reconnect_failed', function(){
-        console.log('reconnect failed')
-        // socket.socket.connect();
-     });
-     socket.on("connect_error", () => {
+    socket.on("connect_error", () => {
         console.log('connect error')
         socket.io.opts.transports = ["polling", "websocket"];
       });
+
+      socket.on("disconnect", (reason) => {
+        console.log(socket.connected, 'connection details')
+        if (reason === "io server disconnect") {
+            console.log('server disconneted')
+            socket.connect();
+        } else if(reason === "io client disconnect"){
+            console.log('client disconneted')
+            socket.connect();
+        }
+        // else the socket will automatically try to reconnect
+      });
     
-
-
 function ListItems ({items}){
 
     const deleteItem =async(e)=>{
@@ -87,7 +61,7 @@ function ListItems ({items}){
 
 function DashBoard() {
 
-    const [ tableItems, setTableItems ] = useState()
+    const [ tableItems, setTableItems ] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const email = cookies.UserEmail
     
@@ -104,59 +78,47 @@ function DashBoard() {
         socket.on("receive_msg", (data)=>{
             new Audio(order).play()
             console.log('data', data)
-            setRestaurantOrders(data.ListOfOrders)
+            // setRestaurantOrders(data.ListOfOrders)
+            setTableItems(true)
         });
 
-        // socket.on('error', function(){
-        //     console.log('inside useeffect reconnecting')
-        //     socket.socket.connect();
-        //   });
-    
-        // socket.on('disconnect', function(){
-        //     console.log('inside useeffect disconnected and reconnecting')
-        //     socket.socket.connect();
-        //  });
         socket.on("connect_error", () => {
             console.log('connect error')
             socket.io.opts.transports = ["polling", "websocket"];
           });
-        socket.on('connect', function(){
-            console.log('connected')
-            // socket.socket.connect();
+        
+          socket.on("disconnect", (reason) => {
+            console.log(socket.connected, 'connection details')
+            if (reason === "io server disconnect") {
+                console.log('server disconneted')
+                socket.connect();
+            } else if(reason === "io client disconnect"){
+                console.log('client disconneted')
+                socket.connect();
+            }
+            // else the socket will automatically try to reconnect
           });
-    
-        socket.on('disconnect', function(){
-            console.log('disconnected')
-            // socket.socket.connect();
-         });
-         socket.on('reconnect', function(){
-            console.log('reconnected')
-            // socket.socket.connect();
-          });
-    
-        socket.on('connecting', function(){
-            console.log('connecting')
-            // socket.socket.connect();
-         });
-         socket.on('connect_failed', function(){
-            console.log('connect failed')
-            // socket.socket.connect();
-          });
-    
-        socket.on('close', function(){
-            console.log('close')
-            // socket.socket.connect();
-         });
-         socket.on('reconnecting', function(){
-            console.log('reconnecting')
-            // socket.socket.connect();
-          });
-    
-        socket.on('reconnect_failed', function(){
-            console.log('reconnect failed')
-            // socket.socket.connect();
-         });
+        
     }, [socket])
+
+    useEffect(()=>{
+        socket.on("connect_error", () => {
+            console.log('connect error')
+            socket.io.opts.transports = ["polling", "websocket"];
+        });
+
+        socket.on("disconnect", (reason) => {
+            console.log(socket.connected, 'connection details')
+            if (reason === "io server disconnect") {
+                console.log('server disconneted')
+                socket.connect();
+            } else if(reason === "io client disconnect"){
+                console.log('client disconneted')
+                socket.connect();
+            }
+            // else the socket will automatically try to reconnect
+          });
+    })
 
     const joinRoom = ()=>{
         socket.emit('join_room', email)
@@ -166,52 +128,12 @@ function DashBoard() {
         sendMessage()
     }, [])
 
-    useEffect(()=>{
-        socket.on('connect', function(){
-            console.log('connected')
-            // socket.socket.connect();
-          });
-    
-        socket.on('disconnect', function(){
-            console.log('disconnected')
-            // socket.socket.connect();
-         });
-         socket.on('reconnect', function(){
-            console.log('reconnected')
-            // socket.socket.connect();
-          });
-    
-        socket.on('connecting', function(){
-            console.log('connecting')
-            // socket.socket.connect();
-         });
-         socket.on('connect_failed', function(){
-            console.log('connect failed')
-            // socket.socket.connect();
-          });
-    
-        socket.on('close', function(){
-            console.log('close')
-            // socket.socket.connect();
-         });
-         socket.on('reconnecting', function(){
-            console.log('reconnecting')
-            // socket.socket.connect();
-          });
-    
-        socket.on('reconnect_failed', function(){
-            console.log('reconnect failed')
-            // socket.socket.connect();
-         });
-         socket.on("connect_error", () => {
-            console.log('connect error')
-            socket.io.opts.transports = ["polling", "websocket"];
-          });
-    })
 
   return (
     <div className='dashboard-container'>
          <div className="orders-container">
+            {!tableItems && <button>No Order</button> }
+            {tableItems && <button>New Order</button> }
             <table className="orders-card">
                     <thead>
                         <tr>
@@ -225,8 +147,6 @@ function DashBoard() {
                     </thead>
                     
                     <tbody>
-                        { tableItems && tableItems.map((items)=> <ListItems key={items._id} items={items} />) }
-
                         { restaurantOrders && restaurantOrders.map((items)=> <ListItems key={items._id} items={items} />) }
                     </tbody>   
             </table>
