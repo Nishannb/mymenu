@@ -9,7 +9,7 @@ import order from '../assests/order.mp3'
 
 const socket = io.connect('https://mymenuserver-xu2x.onrender.com', {
     rejectUnauthorized: false,
-    transports: ['websocket', 'polling'],
+    transports: ['polling'],
     vary: origin,
     reconnection: true,
     reconnectionDelay: 5000,
@@ -61,7 +61,7 @@ function ListItems ({items}){
 
 function DashBoard() {
 
-    const [ tableItems, setTableItems ] = useState(false)
+    const [ tableItems, setTableItems ] = useState()
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const email = cookies.UserEmail
     
