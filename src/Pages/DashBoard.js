@@ -61,7 +61,7 @@ function ListItems ({items}){
 
 function DashBoard() {
 
-    const [ tableItems, setTableItems ] = useState()
+    const [ tableItems, setTableItems ] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const email = cookies.UserEmail
     
@@ -78,8 +78,7 @@ function DashBoard() {
         socket.on("receive_msg", (data)=>{
             new Audio(order).play()
             console.log('data', data)
-            // setRestaurantOrders(data.ListOfOrders)
-            setTableItems(true)
+            if(data === 'true') setTableItems(true)
         });
 
         socket.on("connect_error", () => {
@@ -128,12 +127,23 @@ function DashBoard() {
         sendMessage()
     }, [])
 
+    const fetchOrders = async()=>{
+        try {
+          const response = await axios.get('https://mymenuserver-xu2x.onrender.com/orders', {params: {email:email}})
+          setRestaurantOrders(response.data)
+          setTableItems(false)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
 
   return (
     <div className='dashboard-container'>
          <div className="orders-container">
-            {!tableItems && <button>No Order</button> }
-            {tableItems && <button>New Order</button> }
+            {tableItems === true && <p className='notification'>New Orders notification has been received!! Click "New Order" button to fetch orders.</p> }
+            {!tableItems ===true && <button className='noorder'>No Order</button> }
+            {tableItems === true && <button className='neworder' onClick={fetchOrders}>New Order</button> }
             <table className="orders-card">
                     <thead>
                         <tr>
