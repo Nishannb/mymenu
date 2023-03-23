@@ -7,6 +7,7 @@ import axios from 'axios';
 import { FoodMenuContext, SlotMachineContext } from '../App'
 import { useParams } from 'react-router-dom';
 import ConfettiFunc from '../Components/Confetti';
+import Review from '../Components/Review';
 
 function HomePageMenu() {
 
@@ -43,9 +44,9 @@ function HomePageMenu() {
         <NavBar navBarItem='Place Orders' />
         {displayConfetti && <ConfettiFunc />}
         {foodItems.isSlotMachineAdded && <Slot />}
-        {/* <Dice /> */}
         <FooterMenu />
         <MainMenu />
+        {/* <Review /> */}
     </>
   )
 }

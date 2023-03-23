@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { AdminHomePageContext } from '../Pages/Restaurants/AdminHomePage'
 function VNavigation() {
 
-  const { setShowManageAccount, setShowGetQr, setShowDashboard, setShowReceipt, setShowSettings  } = useContext(AdminHomePageContext)
+  const { setShowManageAccount, setShowGetQr, setShowDashboard, setShowReceipt, setShowSettings, setShowCustomerReviews } = useContext(AdminHomePageContext)
 
   const handleDisplay =(clickedOption)=>{
     setShowGetQr(false)
@@ -11,16 +11,18 @@ function VNavigation() {
     setShowDashboard(false)
     setShowReceipt(false)
     setShowSettings(false)
+    setShowCustomerReviews(false)
     clickedOption(true)
   }
   return (
     <div className='vnavigation-container'>
         <div className="vnavigation-card">
-            <a onClick={()=>handleDisplay(setShowDashboard) }>Orders</a>
-            <a onClick={()=>handleDisplay(setShowReceipt) }>Receipt</a>
-            <a onClick={()=>handleDisplay(setShowManageAccount) }>Menu</a>
-            <a onClick={()=>handleDisplay(setShowGetQr) }>Get QR</a>
-            <a onClick={()=> handleDisplay(setShowSettings)}>Settings</a>
+            <a href='#' onClick={()=>handleDisplay(setShowDashboard) }>Orders</a>
+            <a href='#' onClick={()=>handleDisplay(setShowReceipt) }>Receipt</a>
+            <a href='#' onClick={()=>handleDisplay(setShowManageAccount) }>Menu</a>
+            <a href='#' onClick={()=>handleDisplay(setShowGetQr) }>Get QR</a>
+            <a href='#' onClick={()=>handleDisplay(setShowCustomerReviews) }>Customer Reviews</a>
+            <a href='#' onClick={()=> handleDisplay(setShowSettings)}>Settings</a>
         </div>
     </div>
   )

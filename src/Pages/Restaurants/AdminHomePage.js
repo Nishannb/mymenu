@@ -9,6 +9,7 @@ import Receipt from '../../Components/Receipt'
 import Settings from '../../Components/Settings'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import CustomerReviews from '../../Components/CustomerReviews'
 
 export const AdminHomePageContext = createContext({})
 export const ItemSelectedToEdit = createContext({})
@@ -21,6 +22,8 @@ function AdminHomePage() {
     const [ showMenuEditInterface, setShowMenuEditInterface] = useState(false)
     const [ showGetQr, setShowGetQr ] = useState()
     const [ showReceipt, setShowReceipt] = useState()
+    const [ showCustomerReviews, setShowCustomerReviews] = useState(false)
+
     const [editThisItem, setEditThisItem ] = useState()
     const [ showSettings, setShowSettings] = useState(false)
     const [cookies] = useCookies(['user'])
@@ -49,7 +52,7 @@ function AdminHomePage() {
   return (
     <>
     <RestaurantInfoContext.Provider value={{ restaurantOrders, setRestaurantOrders, restaurantInfo, setRestaurantInfo }} >
-    <AdminHomePageContext.Provider value={{ showManageAccount, setShowManageAccount, showGetQr, setShowGetQr, showDashBoard, setShowDashboard, showReceipt, setShowReceipt, showSettings, setShowSettings }}>
+    <AdminHomePageContext.Provider value={{ showManageAccount, setShowManageAccount, showGetQr, setShowGetQr, showDashBoard, setShowDashboard, showReceipt, setShowReceipt, showSettings, setShowSettings, showCustomerReviews, setShowCustomerReviews }}>
         <ItemSelectedToEdit.Provider value={{ editThisItem, setEditThisItem, showMenuEditInterface, setShowMenuEditInterface }}>
             <NavBar navBarItem='Logout' />
             <div className="adminHomePageBody-section">
@@ -72,6 +75,11 @@ function AdminHomePage() {
                 {showReceipt && <div className='receipt-section'>
                     <Receipt />  
                 </div>}
+
+                {showCustomerReviews && <div className='customer-review-container'>
+                  <h1>Customer Reviews: </h1>
+                    <CustomerReviews />
+                </div> }
 
                 {showSettings && <div className='settings-container'>
                     <Settings />

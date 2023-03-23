@@ -11,6 +11,7 @@ import Error from './Components/Error';
 import HomePage from './Pages/HomePage';
 import Footer from './Components/Footer';
 import AdminHomePage from './Pages/Restaurants/AdminHomePage';
+import Review from './Components/Review';
 
 export const FoodMenuContext = createContext({})
 export const CartContext = createContext({})
@@ -65,6 +66,7 @@ function App() {
               <Route path='/admin/login' element={<Login />} />
               <Route path='/admin/register' element={<Register />} />
               {AuthToken && UserEmail && <Route path='/admin/manage' element={<AdminHomePage />} />}
+              <Route path='/review/:name' element={<Review />} />
               <Route path='*' element={<Error />} />
               <Route path='/admin/*' element={<Error />} />
             </Routes>

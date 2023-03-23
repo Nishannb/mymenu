@@ -1702,6 +1702,7 @@ Element{
   position: relative;
   bottom: 0;
   z-index: -1;
+  display: none;
 }
 
 
@@ -1712,227 +1713,6 @@ Element{
 
 
 /* CopyRight Footer */
-
-
-/* Dice */
-
-.dice-menu-items{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background-color: gold; */
-  padding: 5px;
-  width: 80%;
-  height: 12vh;
-  margin: auto;
-  /* border-radius: 40%; */
-  position: relative;
-  margin-top: 0px;
-  /* border-bottom: 2px solid rgb(128, 128, 128, 50%); */
-}
-
-.dice-menu-items p{
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: gray;
-  font-weight: 600;
-  margin: 0px;
-  padding: 1px 5px;
-  font-size: small;
-  background-color: white;
-  border-bottom-right-radius: 10px;
-}
-
-.dice-menu-items small{
-  position: absolute;
-  bottom: 0px;
-  right: 0;
-  color: black;
-  font-weight: 500;
-  margin: 0;
-  padding: 1px 5px;
-  font-size: small;
-  background-color: white;
-  border-top-left-radius: 10px;
-}
-
-.cube .front{
-  transform: translateZ(25px);
-}
-
-.cube .back{
-  transform: rotateX(-180deg) translateZ(25px);
-}
-
-.cube .right{
-  transform: rotateY(90deg) translateZ(25px);
-}
-
-.cube .left{
-  transform: rotateY(-90deg) translateZ(25px);
-}
-
-.cube .top{
-  transform: rotateX(90deg) translateZ(25px);
-}
-
-.cube .bottom{
-  transform: rotateX(-90deg) translateZ(25px);
-}
-
-.dice-container{
-  width: 20%;
-  height: 55px;
-  position: relative;
-  margin: 0 0px;
-}
-
-.cube{
-  width: 20px;
-  height: fit-content;
-  top: 10%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transition: transform 4s;
-  transform-origin: center;
-}
-
-.cube:hover{
-  cursor: pointer;
-  transform: rotateX(900deg) rotateY(2700deg) rotateZ(180deg);
-}
-
-.cube div{
-  background-color: gold;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: auto;
-  width: 50px;
-  height: 50px;
-  border: 2px solid royalblue;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 500%;
-  text-align: center;
-  border-radius: 10px;
-}
-
-.dot{
-  display: block;
-  position: absolute;
-  width: 7.5px;
-  height: 7.5px;
-  background: blue;
-  border-radius: 15px;
-}
-
-.front .dot1{
-  top: 21.25px;
-  left: 21.25px;
-}
-
-.back .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.back .dot2{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-.right .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.right .dot2{
-  top: 21.25px;
-  left: 21.25px;
-}
-
-.right .dot3{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-.left .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.left .dot2{
-  top: 11.25px;
-  left: 31.25px;
-}
-
-.left .dot3{
-  top: 31.25px;
-  left: 11.25px;
-}
-
-.left .dot4{
-  top: 31.25px;
-  left: 31.25px;
-}
-.top .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.top .dot2{
-  top: 11.25px;
-  left: 31.25px;
-}
-
-.top .dot3{
-  top: 21.25px;
-  left: 21.25px;
-}
-
-.top .dot4{
-  top: 31.25px;
-  left: 11.25px;
-}
-
-.top .dot5{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-.bottom .dot1{
-  top: 11.25px;
-  left: 11.25px;
-}
-
-.bottom .dot2{
-  top: 11.25px;
-  left: 21.25px;
-}
-
-.bottom .dot3{
-  top: 11.25px;
-  left: 31.25px;
-}
-
-.bottom .dot4{
-  top: 31.25px;
-  left: 11.25px;
-}
-
-.bottom .dot5{
-  top: 31.25px;
-  left: 21.25px;
-}
-
-.bottom .dot6{
-  top: 31.25px;
-  left: 31.25px;
-}
-
-/* Dice */
-
 
 
 .adminHomePageBody-section{
@@ -2009,6 +1789,7 @@ Element{
   margin: 10px;
   background-color: rgb(128, 128, 128, 30%);
   padding: 10px 5px;
+  border-radius: 10px;
 }
 
 .settings-container .games label{
@@ -2016,5 +1797,165 @@ Element{
   margin-left: 10px;
 }
 
+.games .configure-review p{
+  font-size: medium;
+  margin: 5px 10px;
+}
+
+.games .configure-review small{
+  margin: 5px 10px;
+}
+
+.games form{
+  display: flex;
+  flex-direction: column;
+}
+
+.games .configure-review form input{
+  margin: 5px;
+}
+
+.games .configure-review form button{
+  background-color: green;
+  color: white;
+  width: 100px;
+  margin: auto;
+}
 /* Settings Page section */
+
+  .review-container{
+    /* border: 1px solid black; */
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+  }
+
+  .review-container .question-card{
+    /* border: 1px solid orange; */
+    padding: 20px;
+    height: 30vh;
+    text-align: center;
+  }
+
+  .review-container .question-card h3{
+    color: purple;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+  }
+
+  .review-container .answer-container{
+    height: 25vh;
+    width: 70vw;
+    position: relative;
+    margin: auto;
+    padding-top: 25px;
+  }
+
+  .review-container .input-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .review-container .input-section textarea{
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .review-container .input-section button{
+    background-color: orange;
+    width: 100px;
+  }
+
+  .answer-container h4{
+    letter-spacing: 0.2rem;
+    font-style: italic;
+    color: rgb(128, 0, 128, 50%);
+  }
+
+  .answer-container .x2{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin: 0;
+  }
+
+  .answer-container .x3{
+    position: absolute;
+    bottom: 0;
+    left: 45%;
+    margin: 0;
+  }
+
+  .answer-container .x5{
+    position: absolute;
+    top: 0;
+    left: 45%;
+    margin: 0;
+  }
+
+  .answer-container .x4{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin: 0;
+  }
+
+  .review-container .answer-slider{
+    width: 50vw;
+    height: 20vh;
+    border: 3px dotted rgb(255, 165, 0, 40%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 30%;
+    overflow: hidden;
+    text-align: center;
+    color: gray;
+    font-size: smaller;
+  }
+
+  .answer-card{
+    width: 80px;
+    height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: auto;
+  }
+
+
+  /* Customer reviews */
+  .customer-review-container{
+    margin: 15px ;
+  }
+
+  .customer-review-container .customer-reviews-card{
+    width: 70vw;
+    border: 1px dotted black;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px;
+  }
+
+  .customer-reviews-card p{
+    font-weight: 500;
+  }
+
+  .customer-reviews-card p span{
+    color: black;
+  }
+
+  .customer-reviews-card .review{
+    margin: 10px;
+    color: black;
+  }
+
+    /* Customer reviews */
+
+
 
