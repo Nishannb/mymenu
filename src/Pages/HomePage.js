@@ -11,11 +11,11 @@ function HomePage() {
   const solutions = useRef(null)
   return (
     <>
-        {/* <HomePageNavBar solutions={solutions} />
+        <HomePageNavBar solutions={solutions} />
         <HomePageMessage />
         <HomePageFirstBodySection />
         <HomePageMidBodySection solutions={solutions} />
-        <HomePageInfoSection /> */}
+        <HomePageInfoSection />
     </>
   )
 }
